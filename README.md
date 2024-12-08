@@ -122,18 +122,15 @@ When running the command `sudo fdisk -l /dev/sda`, the output shows an **`sda2`*
 #### Primary Partition Limit:
 - MBR disks support only **4 primary partitions**. To create more, an Extended Partition is used to hold additional Logical Partitions.
 
-#### In Your Setup:
+#### In MY Setup:
 - **`sda1`** is a primary partition (used for `/boot`).
+- **`sda2`**: An Extended Partition (container for Logical Partitions).
 - **`sda5`** is a Logical Partition inside the Extended Partition **`sda2`** (used for LVM in your setup).
-
-### Key Points:
-
-- **`sda2` Purpose**: It serves as a container for **Logical Partitions**, enabling you to bypass the **4-partition limit** in MBR.
-- **Why `sda5`?**: Logical Partitions always start from **5**, regardless of the actual number of Primary Partitions.
-
+- 
 <div align="center">
    <img width="486" alt="Screen Shot 2024-12-08 at 9 09 24 PM" src="https://github.com/user-attachments/assets/8cd3f415-e5e9-48e8-a74a-52bb73565f6d">
 </div>
+
 
 
 
