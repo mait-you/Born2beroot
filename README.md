@@ -126,10 +126,79 @@ When running the command `sudo fdisk -l /dev/sda`, the output shows an **`sda2`*
 - **`sda1`** is a primary partition (used for `/boot`).
 - **`sda2`**: An Extended Partition (container for Logical Partitions).
 - **`sda5`** is a Logical Partition inside the Extended Partition **`sda2`** (used for LVM in your setup).
-- 
+
 <div align="center">
    <img width="486" alt="Screen Shot 2024-12-08 at 9 09 24 PM" src="https://github.com/user-attachments/assets/8cd3f415-e5e9-48e8-a74a-52bb73565f6d">
 </div>
+
+## Difference Between `apt`, `apt-get`, and `aptitude`
+
+These tools are used to manage packages but they differ in their purpose, interface, and features. Here’s a detailed comparison:
+
+### 1. `apt`
+
+**Description**:  
+A modern and simplified package management interface. It is designed to be easier to use than `apt-get`.
+
+**Features**:
+- Easy to use with a unified command syntax.
+- Clear user messages.
+- Suitable for end users.
+
+**Drawbacks**:
+- Limited in handling complex scenarios.
+
+**Common Usage**:
+- `apt install package`: To install packages.
+- `apt update`: To update package lists.
+- `apt upgrade`: To upgrade installed packages.
+
+### 2. `apt-get`
+
+**Description**:  
+A traditional, powerful package management tool, often used for complex tasks.
+
+**Features**:
+- Supports a wide range of options.
+- Flexible in handling dependencies.
+- Reliable for professional and administrative use.
+
+**Drawbacks**:
+- Less user-friendly and harder for casual users.
+
+**Common Usage**:
+- `apt-get install package`: To install packages.
+- `apt-get update`: To update package lists.
+- `apt-get dist-upgrade`: To upgrade the system.
+
+### 3. `aptitude`
+
+**Description**:  
+An advanced package management tool that provides a text-based interactive interface for resolving issues.
+
+**Features**:
+- Interactive interface for displaying packages.
+- Automatic dependency resolution.
+- Supports all functions of `apt-get` with added features.
+
+**Drawbacks**:
+- Requires manual installation and is not as commonly used by casual users.
+
+**Common Usage**:
+- `aptitude install package`: To install packages.
+- `aptitude update`: To update package lists.
+- `aptitude safe-upgrade`: To safely upgrade packages.
+
+## Comparison Between `apt`, `apt-get`, and `aptitude`
+
+| Feature                | `apt`            | `apt-get`         | `aptitude`        |
+|------------------------|------------------|-------------------|-------------------|
+| **Interface**           | Simple and unified | Traditional and complex | Text-based interactive |
+| **Ease of Use**         | For regular users | For professionals  | For professionals  |
+| **Dependency Resolution** | Manual           | Manual            | Automatic         |
+| **User Messages**       | Clear and improved | Traditional       | Interactive       |
+| **Default Installation**| Installed by default | Installed by default | Needs manual installation |
+| **Complex Functionality** | Limited          | Powerful          | Powerful          |
 
 
 
