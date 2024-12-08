@@ -20,7 +20,7 @@
 - **Hosted Hypervisor**: Runs on top of an existing OS (e.g., Windows or Linux). Typically used for personal computers.
 - **Bare-Metal Hypervisor**: Runs directly on the physical hardware without requiring an underlying OS. Common in servers and data centers.
 
-### What is LVM
+### What’s a LVM
 **LVM (Logical Volume Manager)** is a flexible disk management system that allows dynamic partitioning and resizing of storage volumes in Linux. LVM provides a more advanced way to manage storage by abstracting physical storage into logical units.
 
 1. **Physical Volumes (PVs)**:
@@ -199,6 +199,9 @@ An advanced package management tool that provides a text-based interactive inter
 | **User Messages**       | Clear and improved | Traditional       | Interactive       |
 | **Default Installation**| Installed by default | Installed by default | Needs manual installation |
 | **Complex Functionality** | Limited          | Powerful          | Powerful          |
+
+## What’s a AppArmor
+**AppArmor** is a security module for the Linux kernel that provides mandatory access control (MAC). It restricts the capabilities of applications by defining profiles that specify what resources they can access, such as files, network resources, and system calls. This helps prevent applications from performing unauthorized actions, thus reducing the impact of potential vulnerabilities. AppArmor is easy to configure and is often used to enhance system security by limiting what each application can do.
 
 
 
