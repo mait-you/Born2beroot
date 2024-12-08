@@ -44,11 +44,97 @@ After creating an LV in LVM, you need to format it with a file system (e.g., ext
   <img width="523" alt="Screen Shot 2024-12-08 at 5 13 30 PM" src="https://github.com/user-attachments/assets/681da266-7b5b-432a-9c5f-18f13d0ecd3d">
 </div>
 
-## the block devices
-#### when you run `lsblk` you shoud get
+## The Block Devices
 <div align="center">
   <img width="491" alt="Screen Shot 2024-12-08 at 5 41 49 PM" src="https://github.com/user-attachments/assets/75e871dc-a40c-4348-8095-d8c51f1e05ce">
 </div>
+
+### Explanation of `lsblk` Output
+
+### 1.NAME
+This shows the names of the devices and partitions.
+- **sda**: The primary disk.
+- **sda1, sda2, sda5, sda5_crypt**: The partitions and the encrypted partition on `sda`.
+- **LVMGroup-***: Logical volumes managed by LVM inside the encrypted partition (`sda5_crypt`).
+- **sr0**: A read-only device, typically a CD/DVD drive.
+
+### 2.MAJ:MIN
+These are the major and minor numbers that uniquely identify devices in the system. They are used by the kernel to refer to the devices:
+- **8:0** refers to the main `sda` disk.
+- **8:1** refers to the `sda1` partition.
+- **254:0** refers to the encrypted partition `sda5_crypt`.
+- **254:1, 254:2, etc.** refer to the logical volumes inside the encrypted partition.
+
+### 3.RM (Removable)
+This indicates whether the device is removable (USB drives, CD-ROM).
+- **0**: Not removable (in the case of `sda` and its partitions).
+- **1**: Removable (in the case of `sr0`, likely a CD/DVD drive).
+
+### 4.SIZE
+This column shows the size of the device or partition.
+- **sda** has a size of 30.86 GB.
+- **sda1** is 500 MB.
+- **sda5** is 30.36 GB, and `sda5_crypt` shows the same size because it’s the encrypted partition containing the other logical volumes.
+
+### 5.RO (Read-Only)
+This column indicates whether the device is in read-only mode.
+- **0**: Writable (most devices).
+- **1**: Read-only (for example, a CD/DVD drive, like `sr0`).
+
+### 6.TYPE
+The type of the device:
+- **disk**: A physical storage device (like `sda`).
+- **part**: A partition on a disk (like `sda1`, `sda2`).
+- **crypt**: A cryptographic (LUKS) volume, referring to the encrypted partition (`sda5_crypt`).
+- **lvm**: A logical volume managed by LVM (like `LVMGroup-root`, `LVMGroup-swap`).
+- **rom**: A read-only memory device (like `sr0` for a CD/DVD drive).
+
+### 7.MOUNTPOINT
+This column shows where the device or partition is mounted in the filesystem.
+- **sda1**: Mounted at `/boot`, which stores the bootloader and kernel.
+- **sda5_crypt**: It’s the encrypted container, but the logical volumes inside it are mounted.
+  - **LVMGroup-root**: Mounted as the root filesystem `/`.
+  - **LVMGroup-swap**: Mounted as swap space.
+  - **LVMGroup-home**: Mounted as `/home`, where user data is stored.
+  - **LVMGroup-var**: Mounted as `/var`, used for variable data like logs.
+  - **LVMGroup-srv**: Mounted as `/srv`, used for services like web servers.
+  - **LVMGroup-tmp**: Mounted as `/tmp`, for temporary files.
+  - **LVMGroup-var--log**: Mounted as `/var/log`, for log files.
+- **sr0**: This device is a CD/DVD drive, and it’s typically not mounted unless there’s a disc in the drive.
+
+### Understanding `sda2`
+
+When running the command `sudo fdisk -l /dev/sda`, the output shows an **`sda2`** partition labeled as an **Extended Partition**. Here's what it represents and why it exists:
+
+#### `sda2`?
+
+#### Extended Partition:
+- **`sda2`** is not a regular data partition but an **Extended Partition**, a special type in the **MBR (Master Boot Record)** partitioning scheme.
+- Its sole purpose is to act as a **container** for additional partitions (called **Logical Partitions**) when the limit of **4 primary partitions** is reached.
+
+#### Logical Partitions Inside:
+- Inside **`sda2`**, **Logical Partitions** are created to store data.
+- In your case, **`sda5`** resides inside **`sda2`**.
+- Logical Partitions always start numbering from **5**, even if there are fewer than 4 primary partitions.
+
+### Why does `sda2` exist?
+
+#### Primary Partition Limit:
+- MBR disks support only **4 primary partitions**. To create more, an Extended Partition is used to hold additional Logical Partitions.
+
+#### In Your Setup:
+- **`sda1`** is a primary partition (used for `/boot`).
+- **`sda5`** is a Logical Partition inside the Extended Partition **`sda2`** (used for LVM in your setup).
+
+### Key Points:
+
+- **`sda2` Purpose**: It serves as a container for **Logical Partitions**, enabling you to bypass the **4-partition limit** in MBR.
+- **Why `sda5`?**: Logical Partitions always start from **5**, regardless of the actual number of Primary Partitions.
+
+<div align="center">
+   <img width="486" alt="Screen Shot 2024-12-08 at 9 09 24 PM" src="https://github.com/user-attachments/assets/8cd3f415-e5e9-48e8-a74a-52bb73565f6d">
+</div>
+
 
 
 
