@@ -191,18 +191,19 @@ An advanced package management tool that provides a text-based interactive inter
 
 ## Comparison Between `apt`, `apt-get`, and `aptitude`
 
-| Feature                | `apt`            | `apt-get`         | `aptitude`        |
-|------------------------|------------------|-------------------|-------------------|
-| **Interface**           | Simple and unified | Traditional and complex | Text-based interactive |
-| **Ease of Use**         | For regular users | For professionals  | For professionals  |
-| **Dependency Resolution** | Manual           | Manual            | Automatic         |
-| **User Messages**       | Clear and improved | Traditional       | Interactive       |
-| **Default Installation**| Installed by default | Installed by default | Needs manual installation |
-| **Complex Functionality** | Limited          | Powerful          | Powerful          |
+| Feature                  | `apt`               | `apt-get`              | `aptitude`               |
+|--------------------------|---------------------|------------------------|--------------------------|
+| **Interface**            | Simple and unified  | Traditional and complex| Text-based interactive   |
+| **Ease of Use**          | For regular users   | For professionals      | For professionals        |
+| **Dependency Resolution**| Manual              | Manual                 | Automatic                |
+| **User Messages**        | Clear and improved  | Traditional            | Interactive              |
+| **Default Installation** | Installed by default| Installed by default   | Needs manual installation|
+| **Complex Functionality**| Limited             | Powerful               | Powerful                 |
 
 ## What’s a AppArmor
-**AppArmor** is a security module for the Linux kernel that provides mandatory access control (MAC). It restricts the capabilities of applications by defining profiles that specify what resources they can access, such as files, network resources, and system calls. This helps prevent applications from performing unauthorized actions, thus reducing the impact of potential vulnerabilities. AppArmor is easy to configure and is often used to enhance system security by limiting what each application can do.
+**AppArmor** is a security framework used in Linux systems to enforce Access Control Policies. It defines what actions programs are allowed to perform, protecting the system from harmful or unexpected behaviors.
 
+## SSH (Secure Shell)
 
 
 
