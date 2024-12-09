@@ -189,7 +189,7 @@ An advanced package management tool that provides a text-based interactive inter
 - `aptitude update`: To update package lists.
 - `aptitude safe-upgrade`: To safely upgrade packages.
 
-## Comparison Between `apt`, `apt-get`, and `aptitude`
+### Comparison Between `apt`, `apt-get`, and `aptitude`
 
 | Feature                  | `apt`               | `apt-get`              | `aptitude`               |
 |--------------------------|---------------------|------------------------|--------------------------|
@@ -200,12 +200,71 @@ An advanced package management tool that provides a text-based interactive inter
 | **Default Installation** | Installed by default| Installed by default   | Needs manual installation|
 | **Complex Functionality**| Limited             | Powerful               | Powerful                 |
 
-## What’s a AppArmor
-**AppArmor** is a security framework used in Linux systems to enforce Access Control Policies. It defines what actions programs are allowed to perform, protecting the system from harmful or unexpected behaviors.
+## What’s a AppArmor & SELinux
+**AppArmor** and **SELinux** are both security frameworks used to implement mandatory access control (MAC) protecting the system from harmful or unexpected behaviors ,It defines what actions programs are allowed to perform, but they have key differences in how they operate and are configured.
+### Summary Table:
+
+| Feature              | **AppArmor**                                 | **SELinux**                              |
+|----------------------|----------------------------------------------|------------------------------------------|
+| **Policy Type**      | Path-based                                   | Label-based                              |
+| **Complexity**       | Easier to use and configure                  | More complex, but offers more granularity|
+| **Flexibility**      | Less flexible, but sufficient for many users | Highly flexible and customizable         |
+| **Default Distro**   | Ubuntu, Debian, SUSE                         | Red Hat, Fedora, CentOS, RHEL            |
+
+### Difference Between AppArmor and SELinux:
+- **Flexibility**: SELinux is more powerful and complex but requires more in-depth setup, while AppArmor is easier to use.
+- **Implementation Method**: AppArmor is path-based, meaning it defines security policies based on file paths, whereas SELinux is label-based, meaning it uses labels for objects and enforces policies based on those labels.
 
 ## SSH (Secure Shell)
+**SSH (Secure Shell)** is a cryptographic network protocol used to provide secure communication between two devices over an unsecured network (such as the internet). SSH is primarily used for securely accessing and managing remote servers. It offers a secure way to interact with computer systems via the command line and also allows secure file transfer.
 
+### Secure Shell Host
 
+A **Secure Shell (SSH) Host** refers to a server or system that runs an **SSH server** to allow secure remote access and communication over a network. The term "SSH Host" is used to describe the machine that accepts incoming SSH connections from clients.
 
+#### Key Points about SSH Host:
+
+1. **SSH Protocol**: It is a cryptographic network protocol used to provide secure communication between a client and a server over an insecure network (such as the internet).
+    
+2. **Role of the Host**: The SSH Host is the machine that listens for incoming SSH connections. It requires an **SSH server software** (such as OpenSSH) to allow remote clients to connect securely.
+    
+3. **Authentication**: To access the SSH Host, users must authenticate, typically through a password or an SSH key pair (private and public keys).
+    
+4. **Secure Access**: Once connected to the SSH Host, the user can remotely execute commands, transfer files, or perform other administrative tasks in a secure environment, as SSH encrypts all data exchanged between the client and the host.
+    
+5. **Use Cases**:
+    - **Remote server management**: Administrators use SSH Hosts to manage servers and perform tasks remotely.
+    - **Secure file transfers**: SSH is used to transfer files securely using protocols like **SFTP** (Secure File Transfer Protocol) and **SCP** (Secure Copy).
+    - **Tunneling and port forwarding**: SSH Hosts can be used for secure tunneling to access internal networks.
+
+To set up an SSH Host, you typically need to install and configure an SSH server (like OpenSSH) on the host machine.
+
+### Set Up the SSH Host (Server)
+
+1. **we need to install OpenSSH Server**:
+```bach
+sudo apt update
+sudo apt install openssh-server
+```
+2. **Start the SSH Service**: Ensure that the SSH service is running:
+```bach
+sudo systemctl start ssh
+```
+or `sudo service ssh start` It seems.
+3. **Enable SSH to Start at Boot**: (option)
+```bach
+sudo systemctl enable ssh
+```
+4. **Check SSH Server Status**: You can check if the SSH server is running by using:
+```bach
+sudo systemctl status ssh
+```
+5. **Find the Host's IP Address**: You need the IP address of the machine acting as the SSH host. You can get it by running:
+```bach
+ip a
+```
+<div align="center">
+   <img width="810" alt="Screen Shot 2024-12-09 at 11 56 20 AM" src="https://github.com/user-attachments/assets/bc98309a-7de7-4382-a063-d09f20eb59c3">
+</div>
 
 
