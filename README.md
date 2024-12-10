@@ -244,27 +244,82 @@ To set up an SSH Host, you typically need to install and configure an SSH server
 1. **we need to install OpenSSH Server**:
 ```bach
 sudo apt update
-sudo apt install openssh-server
+sudo apt install openssh-server -y
 ```
+
 2. **Start the SSH Service**: Ensure that the SSH service is running:
 ```bach
 sudo systemctl start ssh
 ```
 or `sudo service ssh start` It seems.
-3. **Enable SSH to Start at Boot**: (option)
+
+3. **Enable SSH to Start at Boot**: (Optional)
 ```bach
 sudo systemctl enable ssh
 ```
+
 4. **Check SSH Server Status**: You can check if the SSH server is running by using:
 ```bach
 sudo systemctl status ssh
 ```
-5. **Find the Host's IP Address**: You need the IP address of the machine acting as the SSH host. You can get it by running:
+
+5. **Change the SSH Port**:Edit the SSH configuration file:
+```bach
+sudo vim /etc/ssh/sshd_config
+```
+- if you dont have vim you can use `vi` ,`nano` or intall `vim`: `sudo apt install vim -y`
+- Find the line:
+  ```yml
+  #Port 22
+  ```
+- Change it to a different port (4242) and remove the #.
+  ```yml
+  Port 4242
+  ```
+- Restart the SSH service:
+  ```bach
+  sudo systemctl restart ssh
+  ```
+
+6. **Enable Root Login**: (Optional):
+```bach
+sudo vim /etc/ssh/sshd_config
+```
+- Find the line:
+  ```yml
+  #PermitRootLogin
+  ```
+- Change it to:
+
+  Allows root login via SSH using any authentication method (password or public key).
+  ```yml
+  PermitRootLogin yes
+  ```
+  
+  Disables root login entirely via SSH.
+  ```yml
+  PermitRootLogin no
+  ```
+  
+  Allows root login only with public key authentication; password-based login is disabled for root (default on many systems).
+  ```yml
+  PermitRootLogin prohibit-password
+  ```
+
+  
+  Similar to prohibit-password. Root login is allowed only with public key authentication.
+  ```yml
+  PermitRootLogin without-password
+  ```
+
+7. **Find the Host's IP Address**: You need the IP address of the machine acting as the SSH host. You can get it by running:
 ```bach
 ip a
 ```
+
 <div align="center">
    <img width="810" alt="Screen Shot 2024-12-09 at 11 56 20 AM" src="https://github.com/user-attachments/assets/bc98309a-7de7-4382-a063-d09f20eb59c3">
 </div>
+
 
 
