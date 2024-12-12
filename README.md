@@ -268,6 +268,11 @@ An advanced package management tool that provides a text-based interactive inter
    sudo visudo
    ```
 
+   - For security reasons too, the paths that can be used by sudo must be restricted.
+   ```bach
+      defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
+   ```
+   
    - Add specific user permissions:
      ```plaintext
      username ALL=(ALL:ALL) ALL
@@ -452,11 +457,19 @@ To set up an SSH Host, you typically need to install and configure an SSH server
      ```bash
      sudo ufw allow ssh
      ```
+   - Blocks all incoming requests.
+   ```
+   ufw default deny incoming
+   ```
+   - Allows all outgoing requests.
+   ```
+   ufw default allow outgoing
+   ```
    - Custom port (4242):
      ```bash
-     sudo ufw allow 4242/tcp
+     sudo ufw allow 4242
      ```
-     - This allows inbound traffic on port 4242 over TCP, the default protocol for SSH.
+     - This allows inbound traffic on port 4242, the default protocol for SSH.
    Check the UFW status:
    ```bash
    sudo ufw status
@@ -470,7 +483,7 @@ To set up an SSH Host, you typically need to install and configure an SSH server
    sudo ufw reload
    ```
 
-7. **Configure Port Forwarding**: (For Virtual Machines)
+8. **Configure Port Forwarding**: (For Virtual Machines)
 
    1. Open the virtual machine settings.
        <div align="center">
@@ -485,11 +498,15 @@ To set up an SSH Host, you typically need to install and configure an SSH server
           <img width="500" alt="Screen Shot 2024-12-12 at 1 48 50 PM" src="https://github.com/user-attachments/assets/2411b482-5766-44a3-a012-f1e3e913f13c" />
        </div>
       
-8. **Connect to the SSH Server**:
+9. **Connect to the SSH Server**:
 
    Connect to the server via SSH:
    ```bash
    ssh your_username@127.0.0.1 -p 4242
+   ```
+   or
+   ```bash
+   ssh your_username@localhost -p 4242
    ```
    Replace `your_username` with your actual username.
 
@@ -497,4 +514,50 @@ To set up an SSH Host, you typically need to install and configure an SSH server
    ```bash
    exit
    ```
+
+## Creating a Group
+   to create a group
+   ```bach
+   sudo groupadd user42
+   ```
+   to create an evaluating group
+   ```bach
+   udo groupadd user42
+   ```
+   ```bach
+   getent group
+   ```
+
+## Setting Password Policy
+
+   Update the package list and install libpam-pwquality:
+   ```bash
+   sudo apt update
+   udo apt-get install libpam-pwquality -y
+   ```
+   Edit the common-password configuration file:
+   ```bash
+   sudo vim /etc/pam.d/common-password
+   ```
+   - Find the line:
+   ```plaintext
+   password        requisite                       pam_pwquality.so retry=3
+   ```
+   - Add this:
+      - `minlen=10`: The password must have a minimum length of 10 characters.
+      - `ucredit=-1`: The password must include at least *(-1)* one uppercase letter (A-Z). 
+      - `lcredit=-1`: The password must include at least *(-1)* one lowercase letter (a-z).
+      - `dcredit=-1`: The password must contain at least *(-1)* one digit (0-9).
+      - `maxrepeat=3`: Prevents using the same character more than 3 times consecutively (aaa or 111).
+      - `reject_username`: Disallows passwords that include the username as a whole or part of it.
+      - `difok=7`: Requires at least 7 characters to be different between the new password and the old one.
+      - `enforce_for_root`: Enforces the same password quality rules for the root user. By default.
+   
+   ```plaintext
+   password        requisite                       pam_pwquality.so retry=3 minlen=10 ucredit=-1 lcredit=-1 dcredit=-1 maxrepeat=3 reject_username difok=7 enforce_for_root
+   ```
+
+
+
+
 
