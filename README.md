@@ -342,9 +342,18 @@ To set up an SSH Host, you typically need to install and configure an SSH server
     ip a
     ```
     - This command shows the network interfaces and IP addresses of the machine. The IP address (usually under `inet`) is required to connect to your machine via SSH from a remote location.
+<div align="center">
+   <img width="810" alt="Screen Shot 2024-12-09 at 11 56 20 AM" src="https://github.com/user-attachments/assets/bc98309a-7de7-4382-a063-d09f20eb59c3">
+</div>
 
 8. **Configure UFW (Uncomplicated Firewall) to Allow SSH**:
-    UFW is a simple and user-friendly firewall manager in Ubuntu. To set up UFW to allow SSH traffic, follow these steps:
+    UFW is a simple and user-friendly firewall manager. To set up UFW to allow SSH traffic, follow these steps:
+   
+    - **Install UFW** :
+      ```bash
+      sudo apt update
+      sudo apt install ufw
+      ```
     
     - **Enable UFW** (if it's not already enabled):
       ```bash
@@ -354,30 +363,22 @@ To set up an SSH Host, you typically need to install and configure an SSH server
     
     - **Allow SSH on the new port (4242 in this example)**:
       ```bash
-      sudo ufw allow 4242/tcp
+      sudo ufw allow ssh
       ```
-      - This allows inbound traffic on port 4242 over TCP, the default protocol for SSH.
     
     - **If you’ve changed the default SSH port**, ensure that you allow traffic on the new port:
       ```bash
-      sudo ufw allow ssh
+      sudo ufw allow 4242/tcp
       ```
+      - This allows inbound traffic on port 4242 over TCP, the default protocol for SSH.
     
     - **Check UFW Status**: To verify the current firewall settings, you can check the status of UFW:
       ```bash
       sudo ufw status
       ```
-
-    - **(Optional) Allow additional services**: If you want to allow other services (e.g., HTTP on port 80), you can run:
+      or
       ```bash
-      sudo ufw allow 80/tcp
-      ```
-    
-    - **(Optional) Deny all incoming connections except SSH**:
-      To block all incoming connections except for SSH (and other services you explicitly allow), you can run:
-      ```bash
-      sudo ufw default deny incoming
-      sudo ufw default allow outgoing
+      udo ufw status numbered
       ```
 
     - **Restart UFW** (to apply all rules):
@@ -385,17 +386,27 @@ To set up an SSH Host, you typically need to install and configure an SSH server
       sudo ufw reload
       ```
 
-### Summary:
+9. **Connecting to SSH**:
+    - Go to youer VM `Setings`:
+      
+    <div align="center">
+       <img width="500" alt="Screen Shot 2024-12-12 at 1 48 21 PM" src="https://github.com/user-attachments/assets/56b2aef6-5f6e-439a-8d70-275a363468c2" />
+    </div>
+    
+    - Click `Network` then `Adapter 1` then Advanced and then click on `Port Forwarding`
+   
+    <div align="center">
+       <img width="500" alt="Screen Shot 2024-12-12 at 1 48 33 PM" src="https://github.com/user-attachments/assets/14ed324b-4666-4f78-a312-4c5452e1ba47" />
+    </div>
 
-- **OpenSSH**: Set up OpenSSH to allow remote connections over SSH.
-- **Change Port**: Modify the default SSH port for security reasons.
-- **Root Login**: Configure root login via SSH, either enabling password or public key authentication.
-- **UFW**: Set up UFW to allow SSH on the configured port and optionally block other services.
+    - Change the Host Port and Guest Port to `4242`
+      
+    <div align="center">
+       <img width="500" alt="Screen Shot 2024-12-12 at 1 48 50 PM" src="https://github.com/user-attachments/assets/2411b482-5766-44a3-a012-f1e3e913f13c" />
+    </div>
+    
+    - 
 
-
-<div align="center">
-   <img width="810" alt="Screen Shot 2024-12-09 at 11 56 20 AM" src="https://github.com/user-attachments/assets/bc98309a-7de7-4382-a063-d09f20eb59c3">
-</div>
 
 
 
