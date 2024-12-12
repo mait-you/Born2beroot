@@ -375,27 +375,29 @@ To set up an SSH Host, you typically need to install and configure an SSH server
 
 7. **Configure Port Forwarding**: (For Virtual Machines)
 
-1. Open the virtual machine settings.
-    <div align="center">
-       <img width="500" alt="Screen Shot 2024-12-12 at 1 48 21 PM" src="https://github.com/user-attachments/assets/56b2aef6-5f6e-439a-8d70-275a363468c2" />
-    </div>
-2. Navigate to **Network > Adapter 1 > Advanced > Port Forwarding**.
-    <div align="center">
-       <img width="500" alt="Screen Shot 2024-12-12 at 1 48 33 PM" src="https://github.com/user-attachments/assets/14ed324b-4666-4f78-a312-4c5452e1ba47" />
-    </div>
-3. Add a rule to forward the host port to the guest port (`4242`).
-    <div align="center">
-       <img width="500" alt="Screen Shot 2024-12-12 at 1 48 50 PM" src="https://github.com/user-attachments/assets/2411b482-5766-44a3-a012-f1e3e913f13c" />
-    </div>
+   1. Open the virtual machine settings.
+       <div align="center">
+          <img width="500" alt="Screen Shot 2024-12-12 at 1 48 21 PM" src="https://github.com/user-attachments/assets/56b2aef6-5f6e-439a-8d70-275a363468c2" />
+       </div>
+   2. Navigate to **Network > Adapter 1 > Advanced > Port Forwarding**.
+       <div align="center">
+          <img width="500" alt="Screen Shot 2024-12-12 at 1 48 33 PM" src="https://github.com/user-attachments/assets/14ed324b-4666-4f78-a312-4c5452e1ba47" />
+       </div>
+   3. Add a rule to forward the host port to the guest port (`4242`).
+       <div align="center">
+          <img width="500" alt="Screen Shot 2024-12-12 at 1 48 50 PM" src="https://github.com/user-attachments/assets/2411b482-5766-44a3-a012-f1e3e913f13c" />
+       </div>
       
 8. **Connect to the SSH Server**:
 
-Connect to the server via SSH:
-```bash
-ssh your_username@127.0.0.1 -p 4242
-```
-Replace `your_username` with your actual username. To exit the SSH session, type:
-```bash
-exit
-```
+   Connect to the server via SSH:
+   ```bash
+   ssh your_username@127.0.0.1 -p 4242
+   ```
+   Replace `your_username` with your actual username.
+
+   To exit the SSH session, type:
+   ```bash
+   exit
+   ```
 
