@@ -239,174 +239,163 @@ A **Secure Shell (SSH) Host** refers to a server or system that runs an **SSH se
 
 To set up an SSH Host, you typically need to install and configure an SSH server (like OpenSSH) on the host machine.
 
-### Set Up the SSH Host (Server)
-
-
-### Set Up the SSH Host (Server) with Detailed Explanation and UFW Setup
+### Set Up the SSH Host (Server) and UFW Setup
 
 1. **Install OpenSSH Server**:
-    ```bash
-    sudo apt update
-    sudo apt install openssh-server -y
-    ```
-    - This command updates the package list and installs the OpenSSH server package on your system. OpenSSH is required to enable SSH access to your machine.
+   Update the package list and install OpenSSH server:
+   ```bash
+   sudo apt update
+   sudo apt install openssh-server -y
+   ```
+   - OpenSSH is required to enable SSH access to your machine.
 
-2. **Start the SSH Service**: Ensure that the SSH service is running:
+2. **Start and Enable SSH Service**:
+   Ensure the SSH service is running:
     ```bash
     sudo systemctl start ssh
-    ```
-    - The command starts the SSH server if it’s not already running, enabling SSH connections. Alternatively, you can use `sudo service ssh start`, but `systemctl` is the recommended way in modern systems using **systemd**.
+   ```
+      - you can use `sudo service ssh start`, but `systemctl` is the recommended way in modern systems using **systemd**.
 
-3. **Enable SSH to Start at Boot** (Optional):
-    ```bash
-    sudo systemctl enable ssh
-    ```
-    - This command ensures that the SSH service starts automatically when your machine boots up. It’s useful for ensuring remote access is available even after reboots.
+   To enable SSH to start automatically at boot: (Optional)
+   ```bash
+   sudo systemctl enable ssh
+   ```
+   Check if SSH is running:
+   ```bash
+   sudo systemctl status ssh
+   ```
+3. **Change the Default SSH Port**: Edit the SSH configuration file:
+   Edit the SSH configuration file to change the default port:
+   ```bash
+   sudo vim /etc/ssh/sshd_config
+   ```
+      - If you don’t have `vim`, you can use `vi`, `nano`, or install `vim` with:
+      ```bash
+      sudo apt install vim -y
+      ```
+   Locate the line:
+   ```plaintext
+   #Port 22
+   ```
+   Uncomment and change the port number (`4242`):
+   ```plaintext
+   Port 4242
+   ```
+   Restart SSH to apply changes:
+   ```bash
+   sudo systemctl restart ssh
+   ```
 
-4. **Check SSH Server Status**: You can check if the SSH server is running by using:
-    ```bash
-    sudo systemctl status ssh
-    ```
-    - This shows the status of the SSH service. If it is active, you’ll see a message indicating that the service is running. If there’s an issue, you can use this to diagnose.
+4. **Configure Root Login** (Optional):
+   Edit the SSH configuration file:
+   ```bash
+   sudo vim /etc/ssh/sshd_config
+   ```
+   - Find the line:
+   ```yml
+   #PermitRootLogin
+   ```
+   - Change it to one of the following options:
 
-5. **Change the SSH Port**: Edit the SSH configuration file:
-    ```bash
-    sudo vim /etc/ssh/sshd_config
-    ```
-    - If you don’t have `vim`, you can use `vi`, `nano`, or install `vim` with:
-    ```bash
-    sudo apt install vim -y
-    ```
-    - Find the line:
-    ```yml
-    #Port 22
-    ```
-    - Remove the `#` and change the port number (e.g., `4242`), ensuring that SSH listens on a different port to avoid common scanning attacks:
-    ```yml
-    Port 4242
-    ```
-    - After saving the file, restart the SSH service to apply changes:
-    ```bash
-    sudo systemctl restart ssh
-    ```
-
-6. **Enable Root Login** (Optional):
-    ```bash
-    sudo vim /etc/ssh/sshd_config
-    ```
-    - Find the line:
-    ```yml
-    #PermitRootLogin
-    ```
-    - Change it to one of the following options:
-
-      - **Allow root login via SSH using any authentication method (password or public key)**:
-        ```yml
+      Modify the `PermitRootLogin` option:
+      - **Allow root login**:
+        ```plaintext
         PermitRootLogin yes
         ```
-
-      - **Disable root login entirely via SSH** (this is the most secure option):
-        ```yml
+      - **Disable root login (recommended)**:
+        ```plaintext
         PermitRootLogin no
         ```
-
-      - **Allow root login only with public key authentication; password-based login is disabled for root** (default on many systems):
-        ```yml
+      - **Allow root login only with public key authentication**:
+        ```plaintext
         PermitRootLogin prohibit-password
         ```
-
-      - To use public key authentication for root, generate a key:
-        ```bash
-        ssh-keygen -t rsa -b 4096
-        ```
-        - `-t rsa`: Specifies the RSA algorithm for key generation.
-        - `-b 4096`: Sets the key length to 4096 bits for higher security.
-
-      - Then, copy the public key:
-        ```bash
-        cat ~/.ssh/id_rsa.pub
-        ```
-      - Paste it into:
-        ```bash
-        /root/.ssh/authorized_keys
-        ```
-        - If the `authorized_keys` file doesn’t exist, create it.
-
-      - **Alternatively**, root login is allowed only with public key authentication:
-        ```yml
-        PermitRootLogin without-password
-        ```
-
-7. **Find the Host's IP Address**: You need the IP address of the machine acting as the SSH host. You can get it by running:
-    ```bash
-    ip a
-    ```
-    - This command shows the network interfaces and IP addresses of the machine. The IP address (usually under `inet`) is required to connect to your machine via SSH from a remote location.
-<div align="center">
-   <img width="810" alt="Screen Shot 2024-12-09 at 11 56 20 AM" src="https://github.com/user-attachments/assets/bc98309a-7de7-4382-a063-d09f20eb59c3">
-</div>
-
-8. **Configure UFW (Uncomplicated Firewall) to Allow SSH**:
-    UFW is a simple and user-friendly firewall manager. To set up UFW to allow SSH traffic, follow these steps:
+   To enable public key authentication:
+      1. Generate an SSH key: (in Client)
+         ```bash
+         ssh-keygen -t rsa -b 4096
+         ```
+            - `-t rsa`: Specifies the RSA algorithm for key generation.
+            - `-b 4096`: Sets the key length to 4096 bits for higher security.
    
-    - **Install UFW** :
-      ```bash
-      sudo apt update
-      sudo apt install ufw
-      ```
-    
-    - **Enable UFW** (if it's not already enabled):
-      ```bash
-      sudo ufw enable
-      ```
-      - This will activate the firewall and enforce the rules.
-    
-    - **Allow SSH on the new port (4242 in this example)**:
-      ```bash
-      sudo ufw allow ssh
-      ```
-    
-    - **If you’ve changed the default SSH port**, ensure that you allow traffic on the new port:
-      ```bash
-      sudo ufw allow 4242/tcp
-      ```
-      - This allows inbound traffic on port 4242 over TCP, the default protocol for SSH.
-    
-    - **Check UFW Status**: To verify the current firewall settings, you can check the status of UFW:
-      ```bash
-      sudo ufw status
-      ```
-      or
-      ```bash
-      udo ufw status numbered
-      ```
+      2. Then, copy the public key:
+         ```bash
+         cat ~/.ssh/id_rsa.pub
+         ```
+         - Paste it into:
+         ```bash
+         /root/.ssh/authorized_keys
+         ```
+         - If the `authorized_keys` file doesn’t exist, create it.
+   
+   Restart SSH to apply changes:
+   ```bash
+   sudo systemctl restart ssh
+   ```
 
-    - **Restart UFW** (to apply all rules):
-      ```bash
-      sudo ufw reload
-      ```
+5. **Find the Host's IP Address**:
+   Get the machine’s IP address:
+   ```bash
+   ip a
+   ```
+   Look for the `inet` address under the relevant network interface.
+   <div align="center">
+      <img width="810" alt="Screen Shot 2024-12-09 at 11 56 20 AM" src="https://github.com/user-attachments/assets/bc98309a-7de7-4382-a063-d09f20eb59c3">
+   </div>
 
-9. **Connecting to SSH**:
-    - Go to youer VM `Setings`:
-      
+6. **Configure UFW (Uncomplicated Firewall) to Allow SSH**:
+   Install and enable UFW (if it's not already enabled):
+   ```bash
+   sudo apt update
+   sudo apt install ufw -y
+   sudo ufw enable
+   ```
+   Allow SSH traffic on the configured port:
+   - Default port:
+     ```bash
+     sudo ufw allow ssh
+     ```
+   - Custom port (4242):
+     ```bash
+     sudo ufw allow 4242/tcp
+     ```
+     - This allows inbound traffic on port 4242 over TCP, the default protocol for SSH.
+   Check the UFW status:
+   ```bash
+   sudo ufw status
+   ```
+   or
+   ```bash
+   udo ufw status numbered
+   ```
+   Reload UFW (to apply all rules):
+   ```bash
+   sudo ufw reload
+   ```
+
+7. **Configure Port Forwarding**: (For Virtual Machines)
+
+1. Open the virtual machine settings.
     <div align="center">
        <img width="500" alt="Screen Shot 2024-12-12 at 1 48 21 PM" src="https://github.com/user-attachments/assets/56b2aef6-5f6e-439a-8d70-275a363468c2" />
     </div>
-    
-    - Click `Network` then `Adapter 1` then Advanced and then click on `Port Forwarding`
-   
+2. Navigate to **Network > Adapter 1 > Advanced > Port Forwarding**.
     <div align="center">
        <img width="500" alt="Screen Shot 2024-12-12 at 1 48 33 PM" src="https://github.com/user-attachments/assets/14ed324b-4666-4f78-a312-4c5452e1ba47" />
     </div>
-
-    - Change the Host Port and Guest Port to `4242`
-      
+3. Add a rule to forward the host port to the guest port (`4242`).
     <div align="center">
        <img width="500" alt="Screen Shot 2024-12-12 at 1 48 50 PM" src="https://github.com/user-attachments/assets/2411b482-5766-44a3-a012-f1e3e913f13c" />
     </div>
-    
-    - 
+      
+8. **Connect to the SSH Server**:
 
-
-
+Connect to the server via SSH:
+```bash
+ssh your_username@127.0.0.1 -p 4242
+```
+Replace `your_username` with your actual username. To exit the SSH session, type:
+```bash
+exit
+```
 
