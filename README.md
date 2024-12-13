@@ -7,16 +7,22 @@
 ### is Linux Operating System
 **Yes**, Linux is an Operating System (OS), but more accurately, it refers to the **kernel**, which is the core part of the OS
 
+---
+
 ## What’s a The Linux kernel
 **The Linux kernel** manages hardware resources and acts as the foundation for Linux distributions.
 
 ## What's a virtual machine 
 **Virtual Machine (VM)** is a software capable of installing an Operating System (**OS**) within itself, making the OS think that it is hosted on a real computer. With virtual machines we can create virtual devices that will behave in the same way as physical devices, using their own CPU, memory, network interface and storage. This is possible because the virtual machine is hosted on a physical device, which is the one that provides the hardware resources to the VM.
 
+---
+
 ## What’s a Hypervisor
 **Hypervisor** is software that creates and manages virtual machines (VMs) on a physical device. It enables multiple operating systems to run simultaneously by allocating separate hardware resources to each VM.
 - **Hosted Hypervisor**: Runs on top of an existing OS (e.g., Windows or Linux). Typically used for personal computers.
 - **Bare-Metal Hypervisor**: Runs directly on the physical hardware without requiring an underlying OS. Common in servers and data centers.
+
+---
 
 ## What’s a LVM
 **LVM (Logical Volume Manager)** is a flexible disk management system that allows dynamic partitioning and resizing of storage volumes in Linux. LVM provides a more advanced way to manage storage by abstracting physical storage into logical units.
@@ -34,6 +40,8 @@
    - These can be resized or extended without worrying about the physical storage.
    - Created using commands like `lvcreate` or `sudo lvs`.
 
+---
+
 ## What is a File System
 After creating an LV in LVM, you need to format it with a file system (e.g., ext4, xfs, btrfs) so that you can store files and manage data on it.
 
@@ -42,12 +50,15 @@ After creating an LV in LVM, you need to format it with a file system (e.g., ext
   <img width="523" alt="Screen Shot 2024-12-08 at 5 13 30 PM" src="https://github.com/user-attachments/assets/681da266-7b5b-432a-9c5f-18f13d0ecd3d">
 </div>
 
+---
+
 ## The Block Devices
+
 <div align="center">
   <img width="491" alt="Screen Shot 2024-12-08 at 5 41 49 PM" src="https://github.com/user-attachments/assets/75e871dc-a40c-4348-8095-d8c51f1e05ce">
 </div>
 
-## Explanation of `lsblk` Output
+### *Explanation of `lsblk` Output*
 
 ### 1.NAME
 This shows the names of the devices and partitions.
@@ -129,6 +140,8 @@ When running the command `sudo fdisk -l /dev/sda`, the output shows an **`sda2`*
    <img width="486" alt="Screen Shot 2024-12-08 at 9 09 24 PM" src="https://github.com/user-attachments/assets/8cd3f415-e5e9-48e8-a74a-52bb73565f6d">
 </div>
 
+---
+
 ## Difference Between `apt`, `apt-get`, and `aptitude`
 
 These tools are used to manage packages but they differ in their purpose, interface, and features. Here’s a detailed comparison:
@@ -199,8 +212,10 @@ An advanced package management tool that provides a text-based interactive inter
 | **Default Installation** | Installed by default| Installed by default   | Needs manual installation|
 | **Complex Functionality**| Limited             | Powerful               | Powerful                 |
 
+---
 
 ## What’s a AppArmor & SELinux
+
 **AppArmor** and **SELinux** are both security frameworks used to implement mandatory access control (MAC) protecting the system from harmful or unexpected behaviors ,It defines what actions programs are allowed to perform, but they have key differences in how they operate and are configured.
 ### Summary Table:
 
@@ -214,6 +229,8 @@ An advanced package management tool that provides a text-based interactive inter
 ### Difference Between AppArmor and SELinux:
 - **Flexibility**: SELinux is more powerful and complex but requires more in-depth setup, while AppArmor is easier to use.
 - **Implementation Method**: AppArmor is path-based, meaning it defines security policies based on file paths, whereas SELinux is label-based, meaning it uses labels for objects and enforces policies based on those labels.
+
+---
 
 ## Setting Up and Using Sudo
 
@@ -316,6 +333,8 @@ An advanced package management tool that provides a text-based interactive inter
      ```bash
      sudo cat /var/log/auth.log | grep sudo
      ```
+
+---
 
 ## SSH (Secure Shell)
 **SSH (Secure Shell)** is a cryptographic network protocol used to provide secure communication between two devices over an unsecured network (such as the internet). SSH is primarily used for securely accessing and managing remote servers. It offers a secure way to interact with computer systems via the command line and also allows secure file transfer.
@@ -515,6 +534,8 @@ To set up an SSH Host, you typically need to install and configure an SSH server
    exit
    ```
 
+---
+
 ## Creating a Group
    to create a group
    ```bach
@@ -527,6 +548,8 @@ To set up an SSH Host, you typically need to install and configure an SSH server
    ```bach
    getent group
    ```
+
+---
 
 ## Setting Password Policy
 
