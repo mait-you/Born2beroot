@@ -564,7 +564,7 @@ To set up an SSH Host, you typically need to install and configure an SSH server
    ```bash
    sudo vim /etc/pam.d/common-password
    ```
-   - Find the line:
+   1. Find the line:
    ```plaintext
    password        requisite                       pam_pwquality.so retry=3
    ```
@@ -581,8 +581,34 @@ To set up an SSH Host, you typically need to install and configure an SSH server
    ```plaintext
    password        requisite                       pam_pwquality.so retry=3 minlen=10 ucredit=-1 lcredit=-1 dcredit=-1 maxrepeat=3 reject_username difok=7 enforce_for_root
    ```
+   2. Find the line:
+      ```plaintext
+      Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin"
+      ```
+      - Add this:
+         -`:/sbin:/bin`.
+      ```plaintext
+      Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      ```
+      - `secure_path`: The secure path it uses when running it is specified using `sudo`.
 
+   3. Add this lines:
 
+      ```plaintext
+      Defaults        requiretty
+      ```
+         - `requiretty`: `sudo` requires the command to be run from an interactive terminal session (TTY).
+         - **TTY** is a terminal session that allows real-time communication with the system.
+      
+      ```plaintext
+      Defaults        badpass_message="<custom_message>"
+      ```
+         - `badpass_message`: be creative :) .
+            - `Defaults        badpass_message="Wrong password. Please try again!"`.
+
+      ```plaintext
+      Defaults        badpass_message="<custom_message>"
+      ```
 
 
 
