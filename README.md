@@ -12,6 +12,8 @@
 ## What’s a The Linux kernel
 **The Linux kernel** manages hardware resources and acts as the foundation for Linux distributions.
 
+---
+
 ## What's a virtual machine 
 **Virtual Machine (VM)** is a software capable of installing an Operating System (**OS**) within itself, making the OS think that it is hosted on a real computer. With virtual machines we can create virtual devices that will behave in the same way as physical devices, using their own CPU, memory, network interface and storage. This is possible because the virtual machine is hosted on a physical device, which is the one that provides the hardware resources to the VM.
 
@@ -245,10 +247,10 @@ An advanced package management tool that provides a text-based interactive inter
    apt install sudo -y
    ```
 
-3. **Add a User to the Sudo Group**
+2. **Add a User to the Sudo Group**
 
    To allow a user to execute commands with `sudo`:
-   1. Add the user to the `sudo` group:
+      - Add the user to the `sudo` group:
       ```bash
       usermod -aG sudo username
       ```
@@ -259,16 +261,16 @@ An advanced package management tool that provides a text-based interactive inter
       - reboot by `reboot`.
 
    Now you can use `sudo`.
-   3. Verify the user’s group membership:
-      ```bash
-      groups username
-      ```
-      The output should include `sudo`.
-      or
-      ```bash
-      getent group sudo
-      ```
-      The output should include your `username`.
+3. **Verify the user’s group membership**:
+   ```bash
+   groups username
+   ```
+   The output should include `sudo`.
+   or
+   ```bash
+   getent group sudo
+   ```
+   The output should include your `username`.
 
 4. **Verify Sudo Access**
 
