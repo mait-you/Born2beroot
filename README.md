@@ -582,46 +582,47 @@ To set up an SSH Host, you typically need to install and configure an SSH server
    password        requisite                       pam_pwquality.so retry=3 minlen=10 ucredit=-1 lcredit=-1 dcredit=-1 maxrepeat=3 reject_username difok=7 enforce_for_root
    ```
    2. Find the line:
-      ```plaintext
-      Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin"
-      ```
-      - Add this:
-         -`:/sbin:/bin`.
+   ```plaintext
+   Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin"
+   ```
+   - Add this:
+     -`:/sbin:/bin`.
+   - `secure_path`: The secure path it uses when running it is specified using `sudo`.
       ```plaintext
       Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
       ```
-      - `secure_path`: The secure path it uses when running it is specified using `sudo`.
 
    3. Add this lines:
 
+   - `requiretty`: `sudo` requires the command to be run from an interactive terminal session (TTY).
+      - **TTY** is a terminal session that allows real-time communication with the system.
+      
       ```plaintext
       Defaults        requiretty
       ```
-         - `requiretty`: `sudo` requires the command to be run from an interactive terminal session (TTY).
-         - **TTY** is a terminal session that allows real-time communication with the system.
       
+   - `badpass_message`: Dplays a custom message when using a wrong password with `sudo`.
       ```plaintext
       Defaults        badpass_message="Wrong password. Please try again!"
       ```
-         - `badpass_message`: Dplays a custom message when using a wrong password with `sudo`.
 
+   - `logfile`: Will store logs in of commands in `/var/log/sudo/sudo.log` that were run with `sudo`.
       ```plaintext
       Defaults        logfile="/var/log/sudo/sudo.log"
       ```
-         - `logfile`: Will store logs in of commands in `/var/log/sudo/sudo.log` that were run with `sudo`.
       
+   - `log_input`, `log_output`: Logs input & output.
+   - `iolog_dir`: Sets the directory to save additional output and input logs.
       ```plaintext
       Defaults        log_input
       Defaults        log_output
       Defaults        iolog_dir=/var/log/sudo
       ```
-         - `log_input`, `log_output`: Logs input & output.
-         - `iolog_dir`: Sets the directory to save additional output and input logs.
 
+   - `passwd_tries`: Limits connection attempts using sudo.
       ```plaintext
       Defaults        passwd_tries=3
       ```
-         - `passwd_tries`: Limits connection attempts using sudo.
 
    
 
