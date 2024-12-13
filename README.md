@@ -601,14 +601,27 @@ To set up an SSH Host, you typically need to install and configure an SSH server
          - **TTY** is a terminal session that allows real-time communication with the system.
       
       ```plaintext
-      Defaults        badpass_message="<custom_message>"
+      Defaults        badpass_message="Wrong password. Please try again!"
       ```
-         - `badpass_message`: be creative :) .
-            - `Defaults        badpass_message="Wrong password. Please try again!"`.
+         - `badpass_message`: Dplays a custom message when using a wrong password with `sudo`.
 
       ```plaintext
-      Defaults        badpass_message="<custom_message>"
+      Defaults        logfile="/var/log/sudo/sudo.log"
       ```
+         - `logfile`: Will store logs in of commands in `/var/log/sudo/sudo.log` that were run with `sudo`.
+      
+      ```plaintext
+      Defaults        log_input
+      Defaults        log_output
+      Defaults        iolog_dir=/var/log/sudo
+      ```
+         - `log_input`, `log_output`: Logs input & output.
+         - `iolog_dir`: Sets the directory to save additional output and input logs.
 
+      ```plaintext
+      Defaults        passwd_tries=3
+      ```
+         - `passwd_tries`: Limits connection attempts using sudo.
 
+   
 
