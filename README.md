@@ -660,21 +660,26 @@ To set up an SSH Host, you typically need to install and configure an SSH server
       env
       ```
 
-- ***The architecture of your operating system and its kernel version***
-- `uname -a`: -a, --all                **print all information, in the following order**
-   - `Linux mait-you42 6.1.0-28-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.119-1 (2024-11-22) x86_64 GNU/Linux`.
-- `uname -s`: -s, --kernel-name        **print the kernel name**
-   - `Linux`.
-- `uname -n`: -n, --nodename           **print the network node hostname**
-   - `mait-you42`.
-- `uname -r`: -r, --kernel-release     **print the kernel release**
-   - `6.1.0-28-amd64`.
-- `uname -v`: -v, --kernel-version     **print the kernel version**
-   - `#1 SMP PREEMPT_DYNAMIC Debian 6.1.119-1 (2024-11-22)`.
-- `uname -m`: -m, --machine            **print the machine hardware name**
-   - `x86_64`.
-- `uname -o`: -o, --operating-system   **print the operating system**
-   - `GNU/Linux`.
+- ***• The architecture of your operating system and its kernel version***
+   - `uname -a`: -a, --all                **print all information, in the following order**
+      - `Linux mait-you42 6.1.0-28-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.119-1 (2024-11-22) x86_64 GNU/Linux`.
+   - `uname -s`: -s, --kernel-name        **print the kernel name**
+      - `Linux`.
+   - `uname -n`: -n, --nodename           **print the network node hostname**
+      - `mait-you42`.
+   - `uname -r`: -r, --kernel-release     **print the kernel release**
+      - `6.1.0-28-amd64`.
+   - `uname -v`: -v, --kernel-version     **print the kernel version**
+      - `#1 SMP PREEMPT_DYNAMIC Debian 6.1.119-1 (2024-11-22)`.
+   - `uname -m`: -m, --machine            **print the machine hardware name**
+      - `x86_64`.
+   - `uname -o`: -o, --operating-system   **print the operating system**
+      - `GNU/Linux`.
 
-   
+- ***• The number of physical processors***
+   - `lscpu`
+   - `grep "same thing"`: lock for `"same thing"`.
+   - `grep "^same thing"`: lock for `"same thing"` in start of line.
+   - `grep "same thing$"`: lock for `"same thing"` in end of line.
+
 
