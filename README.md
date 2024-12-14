@@ -4,7 +4,7 @@
 ## Index:
 
 1. [What’s an Operating System](#whats-an-operating-system)
-2. [Is Linux an Operating System?](#is-linux-operating-system)
+   1. [Is Linux an Operating System](#is-linux-an-operating-system)
 3. [What’s the Linux Kernel](#whats-the-linux-kernel)
 4. [What’s a Virtual Machine](#whats-a-virtual-machine)
 5. [What’s a Hypervisor](#whats-a-hypervisor)
@@ -12,20 +12,20 @@
 
 ---
 
-## What’s a Operating System
+## What’s an Operating System
 **Operating System (OS)** is system software that manages a computer’s hardware and software resources. It provides a user-friendly interface and acts as a bridge between the user and the hardware, enabling applications to run efficiently.
 
-### is Linux Operating System
+### Is Linux an Operating System
 **Yes**, Linux is an Operating System (OS), but more accurately, it refers to the **kernel**, which is the core part of the OS
 
 ---
 
-## What’s a The Linux kernel
+## What’s the Linux Kernel
 **The Linux kernel** manages hardware resources and acts as the foundation for Linux distributions.
 
 ---
 
-## What's a virtual machine 
+## What’s a Virtual Machine
 **Virtual Machine (VM)** is a software capable of installing an Operating System (**OS**) within itself, making the OS think that it is hosted on a real computer. With virtual machines we can create virtual devices that will behave in the same way as physical devices, using their own CPU, memory, network interface and storage. This is possible because the virtual machine is hosted on a physical device, which is the one that provides the hardware resources to the VM.
 
 ---
@@ -37,7 +37,7 @@
 
 ---
 
-## What’s a LVM
+## What’s LVM
 **LVM (Logical Volume Manager)** is a flexible disk management system that allows dynamic partitioning and resizing of storage volumes in Linux. LVM provides a more advanced way to manage storage by abstracting physical storage into logical units.
 
 1. **Physical Volumes (PVs)**:
