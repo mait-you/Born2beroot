@@ -4,19 +4,29 @@
 ## Index:
 
 1. [What’s an Operating System](#whats-an-operating-system)
-   1. [Is Linux an Operating System](#is-linux-an-operating-system)
-3. [What’s the Linux Kernel](#whats-the-linux-kernel)
-4. [What’s a Virtual Machine](#whats-a-virtual-machine)
-5. [What’s a Hypervisor](#whats-a-hypervisor)
-6. [What’s LVM](#whats-lvm)
+2. [What’s the Linux Kernel](#whats-the-linux-kernel)
+3. [What’s a Virtual Machine](#whats-a-virtual-machine)
+4. [What’s a Hypervisor](#whats-a-hypervisor)
+5. [What’s LVM](#whats-lvm)
+6. [What is a File System](#what-is-a-file-system)
+7. [The Block Devices](#the-block-devices)
+   1. [Explanation of `lsblk` Output](#explanation-of-lsblk-output)
+   2. [Understanding `sda2`](#understanding-sda2)
+   3. [Why does `sda2` exist](#why-does-sda2-exist)
+8. [Difference Between `apt`, `apt-get`, and `aptitude](#difference-between-apt-apt-get-and-aptitude)
+   1. [`apt`](#apt)
+   2. [`apt-get`](#apt-get)
+   3. [`aptitude`](#aptitude)
+   4. [Comparison Between `apt`, `apt-get`, and `aptitude`](#comparison-between-apt-apt-get-and-aptitude)
 
 ---
 
 ## What’s an Operating System
 **Operating System (OS)** is system software that manages a computer’s hardware and software resources. It provides a user-friendly interface and acts as a bridge between the user and the hardware, enabling applications to run efficiently.
 
-### Is Linux an Operating System
-**Yes**, Linux is an Operating System (OS), but more accurately, it refers to the **kernel**, which is the core part of the OS
+- **Is Linux an Operating System**
+
+   **Yes**, Linux is an Operating System (OS), but more accurately, it refers to the **kernel**, which is the core part of the OS
 
 ---
 
@@ -58,7 +68,7 @@
 ## What is a File System
 After creating an LV in LVM, you need to format it with a file system (e.g., ext4, xfs, btrfs) so that you can store files and manage data on it.
 
-#### How LVM Works with File System
+- **How LVM Works with File System**
 <div align="center">
   <img width="523" alt="Screen Shot 2024-12-08 at 5 13 30 PM" src="https://github.com/user-attachments/assets/681da266-7b5b-432a-9c5f-18f13d0ecd3d">
 </div>
@@ -128,26 +138,26 @@ After creating an LV in LVM, you need to format it with a file system (e.g., ext
 
 When running the command `sudo fdisk -l /dev/sda`, the output shows an **`sda2`** partition labeled as an **Extended Partition**. Here's what it represents and why it exists:
 
-#### `sda2`?
+**`sda2`** ?
 
-#### Extended Partition:
-- **`sda2`** is not a regular data partition but an **Extended Partition**, a special type in the **MBR (Master Boot Record)** partitioning scheme.
-- Its sole purpose is to act as a **container** for additional partitions (called **Logical Partitions**) when the limit of **4 primary partitions** is reached.
+- **Extended Partition**:
+   - **`sda2`** is not a regular data partition but an **Extended Partition**, a special type in the **MBR (Master Boot Record)** partitioning scheme.
+   - Its sole purpose is to act as a **container** for additional partitions (called **Logical Partitions**) when the limit of **4 primary partitions** is reached.
+   
+- **Logical Partitions Inside**:
+   - Inside **`sda2`**, **Logical Partitions** are created to store data.
+   - In your case, **`sda5`** resides inside **`sda2`**.
+   - Logical Partitions always start numbering from **5**, even if there are fewer than 4 primary partitions.
 
-#### Logical Partitions Inside:
-- Inside **`sda2`**, **Logical Partitions** are created to store data.
-- In your case, **`sda5`** resides inside **`sda2`**.
-- Logical Partitions always start numbering from **5**, even if there are fewer than 4 primary partitions.
+### Why does `sda2` exist
 
-### Why does `sda2` exist?
+**Primary Partition Limit**:
+   - MBR disks support only **4 primary partitions**. To create more, an Extended Partition is used to hold additional Logical Partitions.
 
-#### Primary Partition Limit:
-- MBR disks support only **4 primary partitions**. To create more, an Extended Partition is used to hold additional Logical Partitions.
-
-#### In MY Setup:
-- **`sda1`** is a primary partition (used for `/boot`).
-- **`sda2`**: An Extended Partition (container for Logical Partitions).
-- **`sda5`** is a Logical Partition inside the Extended Partition **`sda2`** (used for LVM in your setup).
+**In MY Setup**:
+   - **`sda1`** is a primary partition (used for `/boot`).
+   - **`sda2`**: An Extended Partition (container for Logical Partitions).
+   - **`sda5`** is a Logical Partition inside the Extended Partition **`sda2`** (used for LVM in your setup).
 
 <div align="center">
    <img width="486" alt="Screen Shot 2024-12-08 at 9 09 24 PM" src="https://github.com/user-attachments/assets/8cd3f415-e5e9-48e8-a74a-52bb73565f6d">
@@ -161,69 +171,69 @@ These tools are used to manage packages but they differ in their purpose, interf
 
 ### 1. `apt`
 
-**Description**:  
-A modern and simplified package management interface. It is designed to be easier to use than `apt-get`.
-
-**Features**:
-- Easy to use with a unified command syntax.
-- Clear user messages.
-- Suitable for end users.
-
-**Drawbacks**:
-- Limited in handling complex scenarios.
-
-**Common Usage**:
-- `apt install package`: To install packages.
-- `apt update`: To update package lists.
-- `apt upgrade`: To upgrade installed packages.
+   **Description**:  
+   - A modern and simplified package management interface. It is designed to be easier to use than `apt-get`.
+   
+   **Features**:
+   - Easy to use with a unified command syntax.
+   - Clear user messages.
+   - Suitable for end users.
+   
+   **Drawbacks**:
+   - Limited in handling complex scenarios.
+   
+   **Common Usage**:
+   - `apt install package`: To install packages.
+   - `apt update`: To update package lists.
+   - `apt upgrade`: To upgrade installed packages.
 
 ### 2. `apt-get`
 
-**Description**:  
-A traditional, powerful package management tool, often used for complex tasks.
-
-**Features**:
-- Supports a wide range of options.
-- Flexible in handling dependencies.
-- Reliable for professional and administrative use.
-
-**Drawbacks**:
-- Less user-friendly and harder for casual users.
-
-**Common Usage**:
-- `apt-get install package`: To install packages.
-- `apt-get update`: To update package lists.
-- `apt-get dist-upgrade`: To upgrade the system.
+   **Description**:  
+   A traditional, powerful package management tool, often used for complex tasks.
+   
+   **Features**:
+   - Supports a wide range of options.
+   - Flexible in handling dependencies.
+   - Reliable for professional and administrative use.
+   
+   **Drawbacks**:
+   - Less user-friendly and harder for casual users.
+   
+   **Common Usage**:
+   - `apt-get install package`: To install packages.
+   - `apt-get update`: To update package lists.
+   - `apt-get dist-upgrade`: To upgrade the system.
 
 ### 3. `aptitude`
 
-**Description**:  
-An advanced package management tool that provides a text-based interactive interface for resolving issues.
+   **Description**:  
+   An advanced package management tool that provides a text-based interactive interface for resolving issues.
+   
+   **Features**:
+   - Interactive interface for displaying packages.
+   - Automatic dependency resolution.
+   - Supports all functions of `apt-get` with added features.
+   
+   **Drawbacks**:
+   - Requires manual installation and is not as commonly used by casual users.
+   
+   **Common Usage**:
+   - `aptitude install package`: To install packages.
+   - `aptitude update`: To update package lists.
+   - `aptitude safe-upgrade`: To safely upgrade packages.
 
-**Features**:
-- Interactive interface for displaying packages.
-- Automatic dependency resolution.
-- Supports all functions of `apt-get` with added features.
 
-**Drawbacks**:
-- Requires manual installation and is not as commonly used by casual users.
+### 4. Comparison Between `apt`, `apt-get`, and `aptitude`
 
-**Common Usage**:
-- `aptitude install package`: To install packages.
-- `aptitude update`: To update package lists.
-- `aptitude safe-upgrade`: To safely upgrade packages.
-
-
-### Comparison Between `apt`, `apt-get`, and `aptitude`
-
-| Feature                  | `apt`               | `apt-get`              | `aptitude`               |
-|--------------------------|---------------------|------------------------|--------------------------|
-| **Interface**            | Simple and unified  | Traditional and complex| Text-based interactive   |
-| **Ease of Use**          | For regular users   | For professionals      | For professionals        |
-| **Dependency Resolution**| Manual              | Manual                 | Automatic                |
-| **User Messages**        | Clear and improved  | Traditional            | Interactive              |
-| **Default Installation** | Installed by default| Installed by default   | Needs manual installation|
-| **Complex Functionality**| Limited             | Powerful               | Powerful                 |
+   | Feature                  | `apt`               | `apt-get`              | `aptitude`               |
+   |--------------------------|---------------------|------------------------|--------------------------|
+   | **Interface**            | Simple and unified  | Traditional and complex| Text-based interactive   |
+   | **Ease of Use**          | For regular users   | For professionals      | For professionals        |
+   | **Dependency Resolution**| Manual              | Manual                 | Automatic                |
+   | **User Messages**        | Clear and improved  | Traditional            | Interactive              |
+   | **Default Installation** | Installed by default| Installed by default   | Needs manual installation|
+   | **Complex Functionality**| Limited             | Powerful               | Powerful                 |
 
 ---
 
