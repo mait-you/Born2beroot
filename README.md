@@ -21,7 +21,6 @@
 9. [What’s a AppArmor & SELinux](#whats-a-apparmor-selinux)
 
 
-## What’s a AppArmor & SELinux
 ---
 
 ## What’s an Operating System
