@@ -598,7 +598,45 @@ To set up an SSH Host, you typically need to install and configure an SSH server
    ```plaintext
    password        requisite                       pam_pwquality.so retry=3 minlen=10 ucredit=-1 lcredit=-1 dcredit=-1 maxrepeat=3 reject_username difok=7 enforce_for_root
    ```
+---
 
+## Abuot bach script
+
+### start whit file name
+   - You can named `script_shell.sh` or `script_shell` whitout `.sh`.
+   but is bater to use `.sh`.
+
+### Shebang
+   - in the top of file write:
+      ```bash
+      #!/bin/bash
+      ```
+   1. With `#!/bin/bash`:
+      - `./script_shell.sh`: The script will use Bash as defined in the **Shebang** (#!/bin/bash) line to run the script.
+      - `bash script_shell.sh`: This will always use Bash to execute the script, regardless of the Shebang line.
+   2. Without `#!/bin/bash`:
+      - `./script_shell.sh`: The script will run using the default shell in your system (/bin/bash, /bin/sh, etc.).
+      - `bash script_shell.sh`: The script will always be executed using Bash, regardless of the absence of the **Shebang** line.
+   to make the script can be run :
+   ```bash
+      chmod +x script_shell.sh
+   ```
+
+### Variables
+   - **creat a var**
+      ```bash
+      VAR_NAME=VALUE
+      ```
+      
+   - **Print all tmp vars**
+      ```bash
+      set
+      ```
+
+   - **Print all environment vars**
+      ```bash
+      env
+      ```
 
   
 
