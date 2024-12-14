@@ -20,7 +20,6 @@
    4. [Comparison Between `apt`, `apt-get`, and `aptitude`](#comparison-between-apt-apt-get-and-aptitude)
 9. [What’s a AppArmor & SELinux](#whats-a-apparmor-selinux)
 
-
 ---
 
 ## What’s an Operating System
