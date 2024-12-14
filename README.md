@@ -8,17 +8,20 @@
 3. [What’s a Virtual Machine](#whats-a-virtual-machine)
 4. [What’s a Hypervisor](#whats-a-hypervisor)
 5. [What’s LVM](#whats-lvm)
-6. [What is a File System](#what-is-a-file-system)
+6. [What’s a File System](#whats-a-file-system)
 7. [The Block Devices](#the-block-devices)
    1. [Explanation of `lsblk` Output](#explanation-of-lsblk-output)
    2. [Understanding `sda2`](#understanding-sda2)
    3. [Why does `sda2` exist](#why-does-sda2-exist)
 8. [Difference Between `apt`, `apt-get`, and `aptitude](#difference-between-apt-apt-get-and-aptitude)
-   1. [qqq](#qqq)
+   1. [`apt`](#apt)
    2. [`apt-get`](#apt-get)
    3. [`aptitude`](#aptitude)
    4. [Comparison Between `apt`, `apt-get`, and `aptitude`](#comparison-between-apt-apt-get-and-aptitude)
+9. [What’s a AppArmor & SELinux](#whats-a-apparmor-selinux)
 
+
+## What’s a AppArmor & SELinux
 ---
 
 ## What’s an Operating System
@@ -65,7 +68,7 @@
 
 ---
 
-## What is a File System
+## What’s a File System
 After creating an LV in LVM, you need to format it with a file system (e.g., ext4, xfs, btrfs) so that you can store files and manage data on it.
 
 - **How LVM Works with File System**
@@ -169,7 +172,7 @@ When running the command `sudo fdisk -l /dev/sda`, the output shows an **`sda2`*
 
 These tools are used to manage packages but they differ in their purpose, interface, and features. Here’s a detailed comparison:
 
-### 1. qqq
+### `apt`
 
    **Description**:  
    - A modern and simplified package management interface. It is designed to be easier to use than `apt-get`.
@@ -187,7 +190,7 @@ These tools are used to manage packages but they differ in their purpose, interf
    - `apt update`: To update package lists.
    - `apt upgrade`: To upgrade installed packages.
 
-### 2. `apt-get`
+### `apt-get`
 
    **Description**:  
    A traditional, powerful package management tool, often used for complex tasks.
@@ -205,7 +208,7 @@ These tools are used to manage packages but they differ in their purpose, interf
    - `apt-get update`: To update package lists.
    - `apt-get dist-upgrade`: To upgrade the system.
 
-### 3. `aptitude`
+### `aptitude`
 
    **Description**:  
    An advanced package management tool that provides a text-based interactive interface for resolving issues.
@@ -224,7 +227,7 @@ These tools are used to manage packages but they differ in their purpose, interf
    - `aptitude safe-upgrade`: To safely upgrade packages.
 
 
-### 4. Comparison Between `apt`, `apt-get`, and `aptitude`
+### Comparison Between `apt`, `apt-get`, and `aptitude`
 
    | Feature                  | `apt`               | `apt-get`              | `aptitude`               |
    |--------------------------|---------------------|------------------------|--------------------------|
