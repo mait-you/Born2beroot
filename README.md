@@ -14,7 +14,7 @@
    2. [Understanding `sda2`](#understanding-sda2)
    3. [Why does `sda2` exist](#why-does-sda2-exist)
 8. [Difference Between `apt`, `apt-get`, and `aptitude](#difference-between-apt-apt-get-and-aptitude)
-   1. [`apt`](#apt)
+   1. [qqq](#qqq)
    2. [`apt-get`](#apt-get)
    3. [`aptitude`](#aptitude)
    4. [Comparison Between `apt`, `apt-get`, and `aptitude`](#comparison-between-apt-apt-get-and-aptitude)
@@ -169,7 +169,7 @@ When running the command `sudo fdisk -l /dev/sda`, the output shows an **`sda2`*
 
 These tools are used to manage packages but they differ in their purpose, interface, and features. Here’s a detailed comparison:
 
-### 1. `apt`
+### 1. qqq
 
    **Description**:  
    - A modern and simplified package management interface. It is designed to be easier to use than `apt-get`.
