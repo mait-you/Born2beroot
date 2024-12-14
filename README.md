@@ -1,6 +1,17 @@
 
 # Born2beroot
 
+## Index:
+
+1. [What’s an Operating System](#whats-an-operating-system)
+2. [Is Linux an Operating System?](#is-linux-operating-system)
+3. [What’s the Linux Kernel](#whats-the-linux-kernel)
+4. [What’s a Virtual Machine](#whats-a-virtual-machine)
+5. [What’s a Hypervisor](#whats-a-hypervisor)
+6. [What’s LVM](#whats-lvm)
+
+---
+
 ## What’s a Operating System
 **Operating System (OS)** is system software that manages a computer’s hardware and software resources. It provides a user-friendly interface and acts as a bridge between the user and the hardware, enabling applications to run efficiently.
 
