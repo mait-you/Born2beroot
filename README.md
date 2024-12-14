@@ -287,15 +287,52 @@ An advanced package management tool that provides a text-based interactive inter
    sudo visudo
    ```
 
-   - For security reasons too, the paths that can be used by sudo must be restricted.
-   ```bach
-      defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
+   1. Find the line:
+   ```plaintext
+   Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin"
    ```
+   - Add this:
+     -`:/sbin:/bin`.
+   - `secure_path`: The secure path it uses when running it is specified using `sudo`.
+      ```plaintext
+      Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      ```
+
+   2. Add this lines:
+
+   - `requiretty`: `sudo` requires the command to be run from an interactive terminal session (TTY).
+      - **TTY** is a terminal session that allows real-time communication with the system.
+      ```plaintext
+      Defaults        requiretty
+      ```
+      
+   - `badpass_message`: Dplays a custom message when using a wrong password with `sudo`.
+      ```plaintext
+      Defaults        badpass_message="Wrong password. Please try again!"
+      ```
+
+   - `logfile`: Will store logs in of commands in `/var/log/sudo/sudo.log` that were run with `sudo`.
+      ```plaintext
+      Defaults        logfile="/var/log/sudo/sudo.log"
+      ```
+      
+   - `log_input`, `log_output`: Logs input & output.
+   - `iolog_dir`: Sets the directory to save additional output and input logs.
+      ```plaintext
+      Defaults        log_input
+      Defaults        log_output
+      Defaults        iolog_dir=/var/log/sudo
+      ```
+
+   - `passwd_tries`: Limits connection attempts using sudo.
+      ```plaintext
+      Defaults        passwd_tries=3
    
-   - Add specific user permissions:
+   - Add specific user permissions: (Opestional)
      ```plaintext
      username ALL=(ALL:ALL) ALL
      ```
+   
      - The first `ALL` means the user can run commands on any host.
      - `(ALL:ALL)` means the user can run commands as any user `-u`and any group `-G`.
      - The last `ALL` allows the user to run any command.
@@ -310,32 +347,6 @@ An advanced package management tool that provides a text-based interactive inter
         ```plaintext
         username ALL=(ALL:ALL) /path/to/command1, /path/to/command2
         ```
-
-6. **Test Sudo Configuration**
-
-   After making changes, test the configuration to ensure it works as intended. For example:
-   ```bash
-   sudo ls /root
-   ```
-   This command lists the contents of the `/root` directory, which requires elevated privileges.
-
-7. **Troubleshooting**
-
-   - **Sudo Command Not Found**: Ensure the `sudo` package is installed and the user is part of the `sudo` group.
-   - **Permission Denied**: Check the `/etc/sudoers` file for proper user configuration.
-   - **Incorrect Syntax**: Use `visudo` to prevent syntax errors that may lock you out.
-
----
-
-7. **Best Practices**
-
-   - **Use Sudo Judiciously**: Only use `sudo` when necessary to minimize the risk of unintended changes.
-   - **Restrict Permissions**: Grant minimal permissions needed for the task.
-   - **Monitor Sudo Usage**: Review logs for suspicious activity:
-     ```bash
-     sudo cat /var/log/auth.log | grep sudo
-     ```
-
 ---
 
 ## SSH (Secure Shell)
@@ -504,7 +515,7 @@ To set up an SSH Host, you typically need to install and configure an SSH server
    sudo ufw reload
    ```
 
-8. **Configure Port Forwarding**: (For Virtual Machines)
+7. **Configure Port Forwarding**: (For Virtual Machines)
 
    1. Open the virtual machine settings.
        <div align="center">
@@ -519,7 +530,7 @@ To set up an SSH Host, you typically need to install and configure an SSH server
           <img width="500" alt="Screen Shot 2024-12-12 at 1 48 50 PM" src="https://github.com/user-attachments/assets/2411b482-5766-44a3-a012-f1e3e913f13c" />
        </div>
       
-9. **Connect to the SSH Server**:
+8. **Connect to the SSH Server**:
 
    Connect to the server via SSH:
    ```bash
@@ -543,12 +554,12 @@ To set up an SSH Host, you typically need to install and configure an SSH server
    ```bach
    sudo groupadd user42
    ```
-   to create an evaluating group
-   ```bach
-   udo groupadd user42
-   ```
    ```bach
    getent group
+   ```
+   add user to the group:
+   ```bach
+   sudo usermod -aG user42 username
    ```
 
 ---
@@ -581,48 +592,9 @@ To set up an SSH Host, you typically need to install and configure an SSH server
    ```plaintext
    password        requisite                       pam_pwquality.so retry=3 minlen=10 ucredit=-1 lcredit=-1 dcredit=-1 maxrepeat=3 reject_username difok=7 enforce_for_root
    ```
-   2. Find the line:
-   ```plaintext
-   Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin"
-   ```
-   - Add this:
-     -`:/sbin:/bin`.
-   - `secure_path`: The secure path it uses when running it is specified using `sudo`.
-      ```plaintext
-      Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-      ```
 
-   3. Add this lines:
 
-   - `requiretty`: `sudo` requires the command to be run from an interactive terminal session (TTY).
-      - **TTY** is a terminal session that allows real-time communication with the system.
-      
-      ```plaintext
-      Defaults        requiretty
-      ```
-      
-   - `badpass_message`: Dplays a custom message when using a wrong password with `sudo`.
-      ```plaintext
-      Defaults        badpass_message="Wrong password. Please try again!"
-      ```
-
-   - `logfile`: Will store logs in of commands in `/var/log/sudo/sudo.log` that were run with `sudo`.
-      ```plaintext
-      Defaults        logfile="/var/log/sudo/sudo.log"
-      ```
-      
-   - `log_input`, `log_output`: Logs input & output.
-   - `iolog_dir`: Sets the directory to save additional output and input logs.
-      ```plaintext
-      Defaults        log_input
-      Defaults        log_output
-      Defaults        iolog_dir=/var/log/sudo
-      ```
-
-   - `passwd_tries`: Limits connection attempts using sudo.
-      ```plaintext
-      Defaults        passwd_tries=3
-      ```
+  
 
    
 
