@@ -62,56 +62,56 @@ After creating an LV in LVM, you need to format it with a file system (e.g., ext
 
 ### *Explanation of `lsblk` Output*
 
-### 1.NAME
-This shows the names of the devices and partitions.
-- **sda**: The primary disk.
-- **sda1, sda2, sda5, sda5_crypt**: The partitions and the encrypted partition on `sda`.
-- **LVMGroup-***: Logical volumes managed by LVM inside the encrypted partition (`sda5_crypt`).
-- **sr0**: A read-only device, typically a CD/DVD drive.
+1. **NAME**:
+   This shows the names of the devices and partitions.
+   - **sda**: The primary disk.
+   - **sda1, sda2, sda5, sda5_crypt**: The partitions and the encrypted partition on `sda`.
+   - **LVMGroup-***: Logical volumes managed by LVM inside the encrypted partition (`sda5_crypt`).
+   - **sr0**: A read-only device, typically a CD/DVD drive.
 
-### 2.MAJ:MIN
-These are the major and minor numbers that uniquely identify devices in the system. They are used by the kernel to refer to the devices:
-- **8:0** refers to the main `sda` disk.
-- **8:1** refers to the `sda1` partition.
-- **254:0** refers to the encrypted partition `sda5_crypt`.
-- **254:1, 254:2, etc.** refer to the logical volumes inside the encrypted partition.
+2. **MAJ:MIN**:
+   These are the major and minor numbers that uniquely identify devices in the system. They are used by the kernel to refer to the devices:
+   - **8:0** refers to the main `sda` disk.
+   - **8:1** refers to the `sda1` partition.
+   - **254:0** refers to the encrypted partition `sda5_crypt`.
+   - **254:1, 254:2, etc.** refer to the logical volumes inside the encrypted partition.
 
-### 3.RM (Removable)
-This indicates whether the device is removable (USB drives, CD-ROM).
-- **0**: Not removable (in the case of `sda` and its partitions).
-- **1**: Removable (in the case of `sr0`, likely a CD/DVD drive).
+3. **RM**: (Removable)
+   This indicates whether the device is removable (USB drives, CD-ROM).
+   - **0**: Not removable (in the case of `sda` and its partitions).
+   - **1**: Removable (in the case of `sr0`, likely a CD/DVD drive).
 
-### 4.SIZE
-This column shows the size of the device or partition.
-- **sda** has a size of 30.86 GB.
-- **sda1** is 500 MB.
-- **sda5** is 30.36 GB, and `sda5_crypt` shows the same size because it’s the encrypted partition containing the other logical volumes.
+5. **SIZE**:
+   This column shows the size of the device or partition.
+   - **sda** has a size of 30.86 GB.
+   - **sda1** is 500 MB.
+   - **sda5** is 30.36 GB, and `sda5_crypt` shows the same size because it’s the encrypted partition containing the other logical volumes.
 
-### 5.RO (Read-Only)
-This column indicates whether the device is in read-only mode.
-- **0**: Writable (most devices).
-- **1**: Read-only (for example, a CD/DVD drive, like `sr0`).
+7. **RO**: (Read-Only)
+   This column indicates whether the device is in read-only mode.
+   - **0**: Writable (most devices).
+   - **1**: Read-only (for example, a CD/DVD drive, like `sr0`).
 
-### 6.TYPE
-The type of the device:
-- **disk**: A physical storage device (like `sda`).
-- **part**: A partition on a disk (like `sda1`, `sda2`).
-- **crypt**: A cryptographic (LUKS) volume, referring to the encrypted partition (`sda5_crypt`).
-- **lvm**: A logical volume managed by LVM (like `LVMGroup-root`, `LVMGroup-swap`).
-- **rom**: A read-only memory device (like `sr0` for a CD/DVD drive).
+8. **TYPE**:
+   The type of the device:
+   - **disk**: A physical storage device (like `sda`).
+   - **part**: A partition on a disk (like `sda1`, `sda2`).
+   - **crypt**: A cryptographic (LUKS) volume, referring to the encrypted partition (`sda5_crypt`).
+   - **lvm**: A logical volume managed by LVM (like `LVMGroup-root`, `LVMGroup-swap`).
+   - **rom**: A read-only memory device (like `sr0` for a CD/DVD drive).
 
-### 7.MOUNTPOINT
-This column shows where the device or partition is mounted in the filesystem.
-- **sda1**: Mounted at `/boot`, which stores the bootloader and kernel.
-- **sda5_crypt**: It’s the encrypted container, but the logical volumes inside it are mounted.
-  - **LVMGroup-root**: Mounted as the root filesystem `/`.
-  - **LVMGroup-swap**: Mounted as swap space.
-  - **LVMGroup-home**: Mounted as `/home`, where user data is stored.
-  - **LVMGroup-var**: Mounted as `/var`, used for variable data like logs.
-  - **LVMGroup-srv**: Mounted as `/srv`, used for services like web servers.
-  - **LVMGroup-tmp**: Mounted as `/tmp`, for temporary files.
-  - **LVMGroup-var--log**: Mounted as `/var/log`, for log files.
-- **sr0**: This device is a CD/DVD drive, and it’s typically not mounted unless there’s a disc in the drive.
+9. **MOUNTPOINT**:
+   This column shows where the device or partition is mounted in the filesystem.
+   - **sda1**: Mounted at `/boot`, which stores the bootloader and kernel.
+   - **sda5_crypt**: It’s the encrypted container, but the logical volumes inside it are mounted.
+     - **LVMGroup-root**: Mounted as the root filesystem `/`.
+     - **LVMGroup-swap**: Mounted as swap space.
+     - **LVMGroup-home**: Mounted as `/home`, where user data is stored.
+     - **LVMGroup-var**: Mounted as `/var`, used for variable data like logs.
+     - **LVMGroup-srv**: Mounted as `/srv`, used for services like web servers.
+     - **LVMGroup-tmp**: Mounted as `/tmp`, for temporary files.
+     - **LVMGroup-var--log**: Mounted as `/var/log`, for log files.
+   - **sr0**: This device is a CD/DVD drive, and it’s typically not mounted unless there’s a disc in the drive.
 
 ### Understanding `sda2`
 
@@ -237,11 +237,13 @@ An advanced package management tool that provides a text-based interactive inter
 ## Setting Up and Using Sudo
 
 1. **Install Sudo**
-   - switch user to root:
-      ```bach
-      su -
-      ```
-   - This installs the `sudo` package:
+   switch user to root:
+   ```bach
+   su -
+   ```
+
+   This installs the `sudo` package:
+
    ```bash
    apt update
    apt install sudo -y
@@ -251,16 +253,21 @@ An advanced package management tool that provides a text-based interactive inter
 
    To allow a user to execute commands with `sudo`:
       - Add the user to the `sudo` group:
-      ```bash
-      usermod -aG sudo username
-      ```
+   
+         ```bash
+         usermod -aG sudo username
+         ```
          - `-a`: apand user whitout removed from athers group.
          - `-G`: whitch group.
       
-      Replace `username` with the actual user’s name.
-      - reboot by `reboot`.
-
+         - Replace `username` with the actual user’s name.
+      - reboot.
+   
+      ```bash
+      reboot
+      ```
    Now you can use `sudo`.
+
 3. **Verify the user’s group membership**:
    ```bash
    groups username
@@ -278,7 +285,6 @@ An advanced package management tool that provides a text-based interactive inter
    ```bash
    sudo whoami
    ```
-   If configured correctly, the output will be `root`.
 
 5. **Configure Sudo Privileges**
 
