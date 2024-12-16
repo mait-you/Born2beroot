@@ -63,6 +63,13 @@
    - Act as partitions within the volume group.
    - These can be resized or extended without worrying about the physical storage.
    - Created using commands like `lvcreate` or `sudo lvs`.
+- **How They Work Together**:
+   - **MBR** provides the basic structure for dividing a physical disk.
+   - **LVM** is implemented on top of a partition created using MBR.
+      - **Example**: Create an LVM physical volume (PV) on a partition like /dev/sda5 (created using MBR), then use LVM to create volume groups and logical volumes dynamically.
+- **In Short**:
+   - **DOS (MBR)**: A way to divide the disk into partitions.
+   - **LVM**: A tool for managing storage across one or more partitions dynamically. It adds flexibility and functionality but relies on a partitioning scheme like MBR or GPT underneath.
 
 ---
 
