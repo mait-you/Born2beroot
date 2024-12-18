@@ -234,14 +234,14 @@ These tools are used to manage packages but they differ in their purpose, interf
 
 ### Comparison Between `apt`, `apt-get`, and `aptitude`
 
-   | Feature                  | `apt`               | `apt-get`              | `aptitude`               |
-   |--------------------------|---------------------|------------------------|--------------------------|
-   | **Interface**            | Simple and unified  | Traditional and complex| Text-based interactive   |
-   | **Ease of Use**          | For regular users   | For professionals      | For professionals        |
-   | **Dependency Resolution**| Manual              | Manual                 | Automatic                |
-   | **User Messages**        | Clear and improved  | Traditional            | Interactive              |
-   | **Default Installation** | Installed by default| Installed by default   | Needs manual installation|
-   | **Complex Functionality**| Limited             | Powerful               | Powerful                 |
+| Feature                  | `apt`               | `apt-get`              | `aptitude`               |
+|--------------------------|---------------------|------------------------|--------------------------|
+| **Interface**            | Simple and unified  | Traditional and complex| Text-based interactive   |
+| **Ease of Use**          | For regular users   | For professionals      | For professionals        |
+| **Dependency Resolution**| Manual              | Manual                 | Automatic                |
+| **User Messages**        | Clear and improved  | Traditional            | Interactive              |
+| **Default Installation** | Installed by default| Installed by default   | Needs manual installation|
+| **Complex Functionality**| Limited             | Powerful               | Powerful                 |
 
 ---
 
@@ -263,127 +263,6 @@ These tools are used to manage packages but they differ in their purpose, interf
 
 ---
 
-## Setting Up and Using Sudo
-
-1. **Install Sudo**
-   switch user to root:
-   ```bach
-   su -
-   ```
-
-   This installs the `sudo` package:
-
-   ```bash
-   apt update
-   apt install sudo -y
-   ```
-
-2. **Add a User to the Sudo Group**
-
-   To allow a user to execute commands with `sudo`:
-      - Add the user to the `sudo` group:
-   
-         ```bash
-         usermod -aG sudo username
-         ```
-         - `-a`: apand user whitout removed from athers group.
-         - `-G`: whitch group.
-      
-         - Replace `username` with the actual user’s name.
-      - reboot.
-   
-      ```bash
-      reboot
-      ```
-   Now you can use `sudo`.
-
-3. **Verify the user’s group membership**:
-   ```bash
-   groups username
-   ```
-   The output should include `sudo`.
-   or
-   ```bash
-   getent group sudo
-   ```
-   The output should include your `username`.
-
-4. **Verify Sudo Access**
-
-   Log in as the user and test `sudo` privileges by running:
-   ```bash
-   sudo whoami
-   ```
-
-5. **Configure Sudo Privileges**
-
-   Modify `sudo` permissions by editing the sudoers file. Use the `visudo` command to ensure syntax validation:
-   ```bash
-   sudo visudo
-   ```
-
-   1. Find the line:
-   ```plaintext
-   Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin"
-   ```
-   - Add this:
-     -`:/sbin:/bin`.
-   - `secure_path`: The secure path it uses when running it is specified using `sudo`.
-      ```plaintext
-      Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-      ```
-
-   2. Add this lines:
-
-   - `requiretty`: `sudo` requires the command to be run from an interactive terminal session (TTY).
-      - **TTY** is a terminal session that allows real-time communication with the system.
-      ```plaintext
-      Defaults        requiretty
-      ```
-      
-   - `badpass_message`: Dplays a custom message when using a wrong password with `sudo`.
-      ```plaintext
-      Defaults        badpass_message="Wrong password. Please try again!"
-      ```
-
-   - `logfile`: Will store logs in of commands in `/var/log/sudo/sudo.log` that were run with `sudo`.
-      ```plaintext
-      Defaults        logfile="/var/log/sudo/sudo.log"
-      ```
-      
-   - `log_input`, `log_output`: Logs input & output.
-   - `iolog_dir`: Sets the directory to save additional output and input logs.
-      ```plaintext
-      Defaults        log_input
-      Defaults        log_output
-      Defaults        iolog_dir=/var/log/sudo
-      ```
-
-   - `passwd_tries`: Limits connection attempts using sudo.
-      ```plaintext
-      Defaults        passwd_tries=3
-   
-   - Add specific user permissions: (Opestional)
-     ```plaintext
-     username ALL=(ALL:ALL) ALL
-     ```
-   
-     - The first `ALL` means the user can run commands on any host.
-     - `(ALL:ALL)` means the user can run commands as any user `-u`and any group `-G`.
-     - The last `ALL` allows the user to run any command.
-     Replace `username` with the actual user’s name.
-   
-      - To allow passwordless sudo (not recommended for security reasons):
-        ```plaintext
-        username ALL=(ALL:ALL) NOPASSWD:ALL
-        ```
-      
-      - Restrict a user to specific commands:
-        ```plaintext
-        username ALL=(ALL:ALL) /path/to/command1, /path/to/command2
-        ```
----
-
 ## SSH (Secure Shell)
 **SSH (Secure Shell)** is a cryptographic network protocol used to provide secure communication between two devices over an unsecured network (such as the internet). SSH is primarily used for securely accessing and managing remote servers. It offers a secure way to interact with computer systems via the command line and also allows secure file transfer.
 
@@ -400,11 +279,6 @@ A **Secure Shell (SSH) Host** refers to a server or system that runs an **SSH se
 3. **Authentication**: To access the SSH Host, users must authenticate, typically through a password or an SSH key pair (private and public keys).
     
 4. **Secure Access**: Once connected to the SSH Host, the user can remotely execute commands, transfer files, or perform other administrative tasks in a secure environment, as SSH encrypts all data exchanged between the client and the host.
-    
-5. **Use Cases**:
-    - **Remote server management**: Administrators use SSH Hosts to manage servers and perform tasks remotely.
-    - **Secure file transfers**: SSH is used to transfer files securely using protocols like **SFTP** (Secure File Transfer Protocol) and **SCP** (Secure Copy).
-    - **Tunneling and port forwarding**: SSH Hosts can be used for secure tunneling to access internal networks.
 
 To set up an SSH Host, you typically need to install and configure an SSH server (like OpenSSH) on the host machine.
 
@@ -423,9 +297,9 @@ To set up an SSH Host, you typically need to install and configure an SSH server
     ```bash
     sudo systemctl start ssh
    ```
-      - you can use `sudo service ssh start`, but `systemctl` is the recommended way in modern systems using **systemd**.
+   > you can use `sudo service ssh start`, but `systemctl` is the recommended way in modern systems using **systemd**.
 
-   To enable SSH to start automatically at boot: (Optional)
+   To enable SSH to start automatically at boot: *(Optional)*
    ```bash
    sudo systemctl enable ssh
    ```
@@ -433,76 +307,75 @@ To set up an SSH Host, you typically need to install and configure an SSH server
    ```bash
    sudo systemctl status ssh
    ```
-3. **Change the Default SSH Port**: Edit the SSH configuration file:
+3. **Configure SSH**: Edit the SSH configuration file:
+
    Edit the SSH configuration file to change the default port:
    ```bash
    sudo vim /etc/ssh/sshd_config
    ```
-      - If you don’t have `vim`, you can use `vi`, `nano`, or install `vim` with:
-      ```bash
-      sudo apt install vim -y
+   - If you don’t have `vim`, you can use `vi`, `nano`, or install `vim` with: `sudo apt install vim -y`
+
+   1. **Change the Default SSH Port**:
+      
+      Locate the line:
+      ```yml
+      #Port 22
       ```
-   Locate the line:
-   ```plaintext
-   #Port 22
-   ```
-   Uncomment and change the port number (`4242`):
-   ```plaintext
-   Port 4242
-   ```
-   Restart SSH to apply changes:
-   ```bash
-   sudo systemctl restart ssh
-   ```
+      Uncomment and change the port number (`4242`):
+      ```yml
+      Port 4242
+      ```
+      Restart SSH to apply changes:
+      ```bash
+      sudo systemctl restart ssh
+      ```
 
-4. **Configure Root Login** (Optional):
-   Edit the SSH configuration file:
-   ```bash
-   sudo vim /etc/ssh/sshd_config
-   ```
-   - Find the line:
-   ```yml
-   #PermitRootLogin
-   ```
-   - Change it to one of the following options:
+   2. **Configure Root Login**:
 
-      Modify the `PermitRootLogin` option:
-      - **Allow root login**:
-        ```plaintext
-        PermitRootLogin yes
-        ```
-      - **Disable root login (recommended)**:
-        ```plaintext
-        PermitRootLogin no
-        ```
-      - **Allow root login only with public key authentication**:
-        ```plaintext
-        PermitRootLogin prohibit-password
-        ```
-   To enable public key authentication:
-      1. Generate an SSH key: (in Client)
-         ```bash
-         ssh-keygen -t rsa -b 4096
-         ```
+      Locate the line:
+      ```yml
+      #PermitRootLogin
+      ```
+
+      Change it to one of the following options:
+
+      1. **Disable root login**: *(Recommended)*
+      ```yml
+      PermitRootLogin no
+      ```
+      2. **Allow root login**:
+      ```yml
+      PermitRootLogin yes
+      ```
+      3. **Allow root login only with public key authentication**:
+      ```yml
+      PermitRootLogin prohibit-password
+      ```
+      - To enable public key authentication:
+         1. Generate an SSH key: (in Client)
+            ```bash
+            ssh-keygen -t rsa -b 4096
+            ```
             - `-t rsa`: Specifies the RSA algorithm for key generation.
             - `-b 4096`: Sets the key length to 4096 bits for higher security.
+      
+         2. Then, copy the public key:
+            ```bash
+            cat ~/.ssh/id_rsa.pub
+            ```
+            - Paste it into:
+            ```bash
+            /root/.ssh/authorized_keys
+            ```
+            - If the `authorized_keys` file doesn’t exist, create it.
    
-      2. Then, copy the public key:
-         ```bash
-         cat ~/.ssh/id_rsa.pub
-         ```
-         - Paste it into:
-         ```bash
-         /root/.ssh/authorized_keys
-         ```
-         - If the `authorized_keys` file doesn’t exist, create it.
-   
-   Restart SSH to apply changes:
-   ```bash
-   sudo systemctl restart ssh
-   ```
+   3. **Restart SSH to apply changes**:
+      ```bash
+      sudo systemctl restart ssh
+      ```
 
-5. **Find the Host's IP Address**:
+4. **Find the Host's IP Address**:
+
    Get the machine’s IP address:
    ```bash
    ip a
@@ -512,60 +385,81 @@ To set up an SSH Host, you typically need to install and configure an SSH server
       <img width="810" alt="Screen Shot 2024-12-09 at 11 56 20 AM" src="https://github.com/user-attachments/assets/bc98309a-7de7-4382-a063-d09f20eb59c3">
    </div>
 
-6. **Configure UFW (Uncomplicated Firewall) to Allow SSH**:
+5. **Configure UFW (Uncomplicated Firewall) to Allow SSH**:
+
    Install and enable UFW (if it's not already enabled):
+
    ```bash
    sudo apt update
    sudo apt install ufw -y
    sudo ufw enable
    ```
-   Allow SSH traffic on the configured port:
-   - Default port:
-     ```bash
-     sudo ufw allow ssh
-     ```
-   - Blocks all incoming requests.
-   ```
-   ufw default deny incoming
-   ```
-   - Allows all outgoing requests.
-   ```
-   ufw default allow outgoing
-   ```
-   - Custom port (4242):
-     ```bash
-     sudo ufw allow 4242
-     ```
-     - This allows inbound traffic on port 4242, the default protocol for SSH.
-   Check the UFW status:
-   ```bash
-   sudo ufw status
-   ```
-   or
-   ```bash
-   udo ufw status numbered
-   ```
-   Reload UFW (to apply all rules):
-   ```bash
-   sudo ufw reload
-   ```
 
-7. **Configure Port Forwarding**: (For Virtual Machines)
+   1. Allow SSH traffic on the configured port:
+
+   - Custom port (4242):
+      ```bash
+      sudo ufw allow 4242
+      ```
+      - This allows inbound traffic on port 4242, the default protocol for SSH.
+
+   - Blocks all incoming requests.
+      ```
+      sudo ufw default deny incoming
+      ```
+
+   - Allows all outgoing requests.
+      ```
+      sudo ufw default allow outgoing
+      ```
+
+   2. Check the UFW status:
+
+      ```bash
+      sudo ufw status
+      ```
+      or
+      ```bash
+      udo ufw status numbered
+      ```
+      Reload UFW (to apply all rules):
+      ```bash
+      sudo ufw reload
+      ```
+   
+   3. Meckshor to leave only port 4242 open:
+
+      <div align="center">
+         <img width="500" alt="Screen Shot 2024-12-12 at 1 48 21 PM" src="" />
+         
+      </div>
+      
+      if you want to delete:
+      ```bash
+      sudo ufw delete <number>
+      ```
+
+6. **Configure Port Forwarding**: (For Virtual Machines)
 
    1. Open the virtual machine settings.
-       <div align="center">
-          <img width="500" alt="Screen Shot 2024-12-12 at 1 48 21 PM" src="https://github.com/user-attachments/assets/56b2aef6-5f6e-439a-8d70-275a363468c2" />
-       </div>
+
+      <div align="center">
+         <img width="500" alt="Screen Shot 2024-12-12 at 1 48 21 PM" src="https://github.com/user-attachments/assets/56b2aef6-5f6e-439a-8d70-275a363468c2" />
+      </div>
+
    2. Navigate to **Network > Adapter 1 > Advanced > Port Forwarding**.
+
        <div align="center">
           <img width="500" alt="Screen Shot 2024-12-12 at 1 48 33 PM" src="https://github.com/user-attachments/assets/14ed324b-4666-4f78-a312-4c5452e1ba47" />
        </div>
+
    3. Add a rule to forward the host port to the guest port (`4242`).
+
        <div align="center">
           <img width="500" alt="Screen Shot 2024-12-12 at 1 48 50 PM" src="https://github.com/user-attachments/assets/2411b482-5766-44a3-a012-f1e3e913f13c" />
        </div>
       
-8. **Connect to the SSH Server**:
+7. **Connect to the SSH Server**:
 
    Connect to the server via SSH:
    ```bash
@@ -582,6 +476,135 @@ To set up an SSH Host, you typically need to install and configure an SSH server
    exit
    ```
 
+---
+
+## Setting Up and Using Sudo
+
+1. **Install Sudo**
+
+   switch user to root:
+
+   ```bach
+   su -
+   ```
+
+   This installs the `sudo` package:
+
+   ```bash
+   apt update
+   apt install sudo -y
+   ```
+
+2. **Add a User to the Sudo Group**
+
+   To allow a user to execute commands with `sudo`:
+   1. Add the user to the `sudo` group:
+
+      ```bash
+      usermod -aG sudo username
+      ```
+      - `-a`: apand user whitout removed from athers group.
+      - `-G`: whitch group.
+   
+      - Replace `username` with the actual user’s name.
+   2. reboot.
+
+      ```bash
+      reboot
+      ```
+   Now you can use `sudo`.
+
+3. **Verify the user’s group membership**:
+
+   ```bash
+   groups username
+   ```
+   - The output should include `sudo`.
+
+   or
+   ```bash
+   getent group sudo
+   ```
+   - The output should include your `username`.
+
+4. **Verify Sudo Access**
+
+   Log in as the user and test `sudo` privileges by running:
+   ```bash
+   sudo whoami
+   ```
+
+5. **Configure Sudo Privileges**
+
+   Modify `sudo` permissions by editing the sudoers file. Use the `visudo` command to ensure syntax validation:
+
+   ```bash
+   sudo visudo
+   ```
+
+   1. Find the line:
+
+      ```ylm
+      Defaults        secure_path="..."
+      ```
+
+      - `secure_path`: The secure path it uses when running it is specified using `sudo`.
+
+      ```ylm
+      Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      ```
+
+   2. Add this lines:
+
+   - `requiretty`: `sudo` requires the command to be run from an interactive terminal session (TTY).
+
+      - **TTY**: is a terminal session that allows real-time communication with the system.
+
+      ```ylm
+      Defaults        requiretty
+      ```
+      
+   - `badpass_message`: Dplays a custom message when using a wrong password with `sudo`.
+      ```ylm
+      Defaults        badpass_message="Wrong password. Please try again!"
+      ```
+
+   - `logfile`: Will store logs in of commands in `/var/log/sudo/sudo.log` that were run with `sudo`.
+      ```ylm
+      Defaults        logfile="/var/log/sudo/sudo.log"
+      ```
+      
+   - `log_input`, `log_output`: Logs input & output.
+   - `iolog_dir`: Sets the directory to save additional output and input logs.
+      ```ylm
+      Defaults        log_input
+      Defaults        log_output
+      Defaults        iolog_dir=/var/log/sudo
+      ```
+
+   - `passwd_tries`: Limits connection attempts using sudo.
+      ```ylm
+      Defaults        passwd_tries=3
+   
+   - Add specific user permissions: (Opestional)
+     ```ylm
+     username ALL=(ALL:ALL) ALL
+     ```
+   
+     - The first `ALL` means the user can run commands on any host.
+     - `(ALL:ALL)` means the user can run commands as any user `-u`and any group `-G`.
+     - The last `ALL` allows the user to run any command.
+     Replace `username` with the actual user’s name.
+   
+      - To allow passwordless sudo (not recommended for security reasons):
+        ```ylm
+        username ALL=(ALL:ALL) NOPASSWD:ALL
+        ```
+      
+      - Restrict a user to specific commands:
+        ```ylm
+        username ALL=(ALL:ALL) /path/to/command1, /path/to/command2
+        ```
 ---
 
 ## Creating a Group
@@ -611,7 +634,7 @@ To set up an SSH Host, you typically need to install and configure an SSH server
    sudo vim /etc/pam.d/common-password
    ```
    1. Find the line:
-   ```plaintext
+   ```ylm
    password        requisite                       pam_pwquality.so retry=3
    ```
    - Add this:
@@ -624,7 +647,7 @@ To set up an SSH Host, you typically need to install and configure an SSH server
       - `difok=7`: Requires at least 7 characters to be different between the new password and the old one.
       - `enforce_for_root`: Enforces the same password quality rules for the root user. By default.
    
-   ```plaintext
+   ```ylm
    password        requisite                       pam_pwquality.so retry=3 minlen=10 ucredit=-1 lcredit=-1 dcredit=-1 maxrepeat=3 reject_username difok=7 enforce_for_root
    ```
 ---
