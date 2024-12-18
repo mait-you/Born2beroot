@@ -427,10 +427,10 @@ To set up an SSH Host, you typically need to install and configure an SSH server
       sudo ufw reload
       ```
    
-   3. Meckshor to leave only port 4242 open:
+   3. Make sure to leave only port 4242 open:
 
       <div align="center">
-         <img width="512" alt="Screen Shot 2024-12-18 at 11 05 17 AM" src="https://github.com/user-attachments/assets/815c2f3e-e07a-4b6d-a62d-e1ea02319761" />
+         <img width="466" alt="Screen Shot 2024-12-18 at 3 15 35 PM" src="https://github.com/user-attachments/assets/1d586bca-e886-4d9a-8841-14cf8f9e3806" />
       </div>
       
       if you want to delete:
