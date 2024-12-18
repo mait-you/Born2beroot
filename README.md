@@ -664,7 +664,7 @@ To set up an SSH Host, you typically need to install and configure an SSH server
    ```
 ---
 
-## Abuot bach script
+## About the bach script
 
 ### start whit file name
    - You can named `script_shell.sh` or `script_shell` whitout `.sh`.
