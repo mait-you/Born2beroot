@@ -618,8 +618,14 @@ To set up an SSH Host, you typically need to install and configure an SSH server
    ```bach
    sudo groupadd user42
    ```
+
+   To verify the changes
    ```bach
    getent group
+   ```
+   or
+   ```bach
+   cat /etc/group
    ```
    add user to the group:
    ```bach
