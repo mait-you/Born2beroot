@@ -430,8 +430,7 @@ To set up an SSH Host, you typically need to install and configure an SSH server
    3. Meckshor to leave only port 4242 open:
 
       <div align="center">
-         <img width="500" alt="Screen Shot 2024-12-12 at 1 48 21 PM" src="" />
-         
+         <img width="512" alt="Screen Shot 2024-12-18 at 11 05 17 AM" src="https://github.com/user-attachments/assets/815c2f3e-e07a-4b6d-a62d-e1ea02319761" />
       </div>
       
       if you want to delete:
