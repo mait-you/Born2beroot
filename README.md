@@ -564,17 +564,20 @@ To set up an SSH Host, you typically need to install and configure an SSH server
       ```
       
    - `badpass_message`: Dplays a custom message when using a wrong password with `sudo`.
+   
       ```ylm
       Defaults        badpass_message="Wrong password. Please try again!"
       ```
 
    - `logfile`: Will store logs in of commands in `/var/log/sudo/sudo.log` that were run with `sudo`.
+   
       ```ylm
       Defaults        logfile="/var/log/sudo/sudo.log"
       ```
       
    - `log_input`, `log_output`: Logs input & output.
    - `iolog_dir`: Sets the directory to save additional output and input logs.
+   
       ```ylm
       Defaults        log_input
       Defaults        log_output
@@ -582,10 +585,12 @@ To set up an SSH Host, you typically need to install and configure an SSH server
       ```
 
    - `passwd_tries`: Limits connection attempts using sudo.
+   
       ```ylm
       Defaults        passwd_tries=3
    
    - Add specific user permissions: (Opestional)
+   
      ```ylm
      username ALL=(ALL:ALL) ALL
      ```
@@ -596,6 +601,7 @@ To set up an SSH Host, you typically need to install and configure an SSH server
      Replace `username` with the actual user’s name.
    
       - To allow passwordless sudo (not recommended for security reasons):
+   
         ```ylm
         username ALL=(ALL:ALL) NOPASSWD:ALL
         ```
@@ -604,6 +610,7 @@ To set up an SSH Host, you typically need to install and configure an SSH server
         ```ylm
         username ALL=(ALL:ALL) /path/to/command1, /path/to/command2
         ```
+
 ---
 
 ## Creating a Group
