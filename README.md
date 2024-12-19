@@ -526,6 +526,8 @@ To set up an SSH Host, you typically need to install and configure an SSH server
    ```
    - The output should include your `username`.
 
+   or `getent group`, `cat /etc/group`.
+
 4. **Verify Sudo Access**
 
    Log in as the user and test `sudo` privileges by running:
@@ -534,6 +536,17 @@ To set up an SSH Host, you typically need to install and configure an SSH server
    ```
 
 5. **Configure Sudo Privileges**
+
+   Go to the `/etc/login.defs` configuration file and modify the following lines:
+
+   - `PASS_MAX_DAYS 30`: Maximum number of days a password may be used.
+   - `PASS_MIN_DAYS 2`: Minimum number of days allowed between password changes.
+   - `PASS_WARN_AGE 7`: Number of days warning given before a password expires.
+
+   For ensure the policy changes we've made are applied to our current users:
+
+   - `chage -M 30 chlimous`: Sets PASS_MAX_DAYS to 30 days for user chlimous.
+   - `chage -m 2 chlimous`; Sets PASS_MIN_DAYS to 2 days for user chlimous.
 
    Modify `sudo` permissions by editing the sudoers file. Use the `visudo` command to ensure syntax validation:
 
