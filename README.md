@@ -545,8 +545,8 @@ To set up an SSH Host, you typically need to install and configure an SSH server
 
    For ensure the policy changes we've made are applied to our current users:
 
-   - `chage -M 30 chlimous`: Sets PASS_MAX_DAYS to 30 days for user chlimous.
-   - `chage -m 2 chlimous`; Sets PASS_MIN_DAYS to 2 days for user chlimous.
+   - `chage -M 30 user_name`: Sets PASS_MAX_DAYS to 30 days for user.
+   - `chage -m 2 user_name`; Sets PASS_MIN_DAYS to 2 days for.
 
    Modify `sudo` permissions by editing the sudoers file. Use the `visudo` command to ensure syntax validation:
 
