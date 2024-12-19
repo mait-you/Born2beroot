@@ -732,6 +732,7 @@ To set up an SSH Host, you typically need to install and configure an SSH server
       - `GNU/Linux`.
 
 - ***• The number of physical processors***
+   - `Socket(s):`: refers to the number of installing physical CPU sockets on the motherboard.
    - `lscpu | grep "^Socket" | awk '{printf $2}'`
 
 - ***• The number of virtual processors***
