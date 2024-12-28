@@ -11,18 +11,23 @@
 6. [What’s LVM](#whats-lvm)
 7. [What’s a File System](#whats-a-file-system)
 8. [What’s a Linux File Systems](#whats-a-linux-file-systems)
-9. [The Block Devices](#the-block-devices)
-   1. [Explanation of `lsblk` Output](#explanation-of-lsblk-output)
-   2. [Understanding `sda2`](#understanding-sda2)
-   3. [Why does `sda2` exist](#why-does-sda2-exist)
-10. [Difference Between `apt`, `apt-get`, and `aptitude](#difference-between-apt-apt-get-and-aptitude)
-   1. [`apt`](#apt)
-   2. [`apt-get`](#apt-get)
-   3. [`aptitude`](#aptitude)
-11. [What’s a AppArmor and SELinux](#whats-a-apparmor-and-selinux)
-12. [SSH (Secure Shell)](#ssh-secure-shell)
-   1. [Secure Shell Host](#secure-shell-host)
-   2. [Secure Shell Host](#secure-shell-host)
+10. [The Block Devices](#the-block-devices)
+    1. [Explanation of `lsblk` Output](#explanation-of-lsblk-output)
+    2. [Understanding `sda2`](#understanding-sda2)
+    3. [Why does `sda2` exist](#why-does-sda2-exist)
+11. [Difference Between `apt`, `apt-get`, and `aptitude`](#difference-between-apt-apt-get-and-aptitude)
+    1. [`apt`](#apt)
+    2. [`apt-get`](#apt-get)
+    3. [`aptitude`](#aptitude)
+12. [What’s a AppArmor and SELinux](#whats-a-apparmor-and-selinux)
+13. [SSH (Secure Shell)](#ssh-secure-shell)
+    1. [Secure Shell Host](#secure-shell-host)
+    2. [SSH Protocol](#ssh-protocol)
+    3. [Set Up the SSH Host (Server)](#set-up-the-ssh-host-server)
+14. [Configure UFW (Uncomplicated Firewall) to Allow SSH](#configure-ufw-uncomplicated-firewall-to-allow-ssh)
+15. [Setting Up and Using Sudo](#setting-up-and-using-sudo)
+16. [Creating a Group](#creating-a-group)
+17. [Setting Password Policy](#setting-password-policy)
 
 
 
@@ -280,13 +285,13 @@ These tools are used to manage packages but they differ in their purpose, interf
 
 A **Secure Shell (SSH) Host** refers to a server or system that runs an **SSH server** to allow secure remote access and communication over a network. The term "SSH Host" is used to describe the machine that accepts incoming SSH connections from clients.
 
-#### SSH Protocol:
+### SSH Protocol:
 
 **SSH Protocol** is a cryptographic network protocol used to provide secure communication between a client and a server over an insecure network (such as the internet).
 
 To set up an SSH Host, you typically need to install and configure an SSH server (like OpenSSH) on the host machine.
 
-### Set Up the SSH Host (Server) and UFW Setup
+### Set Up the SSH Host (Server)
 
 1. **Install OpenSSH Server**:
    Update the package list and install OpenSSH server:
@@ -389,9 +394,9 @@ To set up an SSH Host, you typically need to install and configure an SSH server
       <img width="810" alt="Screen Shot 2024-12-09 at 11 56 20 AM" src="https://github.com/user-attachments/assets/bc98309a-7de7-4382-a063-d09f20eb59c3">
    </div>
 
-5. **Configure UFW (Uncomplicated Firewall) to Allow SSH**:
+## Configure UFW (Uncomplicated Firewall) to Allow SSH:
 
-   Install and enable UFW (if it's not already enabled):
+1. Install and enable UFW (if it's not already enabled):
 
    ```bash
    sudo apt update
@@ -442,7 +447,7 @@ To set up an SSH Host, you typically need to install and configure an SSH server
       sudo ufw delete <number>
       ```
 
-6. **Configure Port Forwarding**: (For Virtual Machines)
+2. **Configure Port Forwarding**: (For Virtual Machines)
 
    1. Open the virtual machine settings.
 
@@ -462,7 +467,7 @@ To set up an SSH Host, you typically need to install and configure an SSH server
           <img width="500" alt="Screen Shot 2024-12-12 at 1 48 50 PM" src="https://github.com/user-attachments/assets/2411b482-5766-44a3-a012-f1e3e913f13c" />
        </div>
       
-7. **Connect to the SSH Server**:
+3. **Connect to the SSH Server**:
 
    Connect to the server via SSH:
    ```bash
