@@ -4,21 +4,27 @@
 ## Index:
 
 1. [What’s an Operating System](#whats-an-operating-system)
-2. [What’s the Linux Kernel](#whats-the-linux-kernel)
-3. [What’s a Virtual Machine](#whats-a-virtual-machine)
-4. [What’s a Hypervisor](#whats-a-hypervisor)
-5. [What’s LVM](#whats-lvm)
-6. [What’s a File System](#whats-a-file-system)
-7. [The Block Devices](#the-block-devices)
+2. [What’s the Different between Rocky Linux and Debian](#whats-the-different-between-rocky-linux-and-debian)
+3. [What’s the Linux Kernel](#whats-the-linux-kernel)
+4. [What’s a Virtual Machine](#whats-a-virtual-machine)
+5. [What’s a Hypervisor](#whats-a-hypervisor)
+6. [What’s LVM](#whats-lvm)
+7. [What’s a File System](#whats-a-file-system)
+8. [What’s a Linux File Systems](#whats-a-linux-file-systems)
+9. [The Block Devices](#the-block-devices)
    1. [Explanation of `lsblk` Output](#explanation-of-lsblk-output)
    2. [Understanding `sda2`](#understanding-sda2)
    3. [Why does `sda2` exist](#why-does-sda2-exist)
-8. [Difference Between `apt`, `apt-get`, and `aptitude](#difference-between-apt-apt-get-and-aptitude)
+10. [Difference Between `apt`, `apt-get`, and `aptitude](#difference-between-apt-apt-get-and-aptitude)
    1. [`apt`](#apt)
    2. [`apt-get`](#apt-get)
    3. [`aptitude`](#aptitude)
-   4. [Comparison Between `apt`, `apt-get`, and `aptitude`](#comparison-between-apt-apt-get-and-aptitude)
-9. [What’s a AppArmor & SELinux](#whats-a-apparmor-selinux)
+11. [What’s a AppArmor and SELinux](#whats-a-apparmor-and-selinux)
+12. [SSH (Secure Shell)](#ssh-secure-shell)
+   1. [Secure Shell Host](#secure-shell-host)
+   2. [Secure Shell Host](#secure-shell-host)
+
+
 
 ---
 
@@ -27,7 +33,21 @@
 
 - **Is Linux an Operating System**
 
-   **Yes**, Linux is an Operating System (OS), but more accurately, it refers to the **kernel**, which is the core part of the OS
+   **Yes**, Linux is an Operating System (OS), but more accurately, it refers to the **kernel**, which is the core part of the OS.
+   - for defense:
+      - `uname -s`: -> `Linux` print the kernel name.
+      - `uname -o`: -> `GNU/Linux` print the operating system.
+
+---
+
+## What’s the Different between Rocky Linux and Debian
+- **Rocky**:
+   - Based on Red Hat and designed as a free alternative to CentOS.
+   - Ideal for large businesses and organizations.
+   - Uses RPM package management system.
+- **Debian**:
+   - Uses APT and dpkg for package management.
+   - Ideal for both beginners and developers.
 
 ---
 
@@ -79,6 +99,13 @@ After creating an LV in LVM, you need to format it with a file system (e.g., ext
 - **How LVM Works with File System**
 <div align="center">
   <img width="523" alt="Screen Shot 2024-12-08 at 5 13 30 PM" src="https://github.com/user-attachments/assets/681da266-7b5b-432a-9c5f-18f13d0ecd3d">
+</div>
+
+---
+
+## What’s a Linux File Systems
+<div align="center">
+   <img width="523" alt="Screen Shot 2024-12-28 at 1 49 41 PM" src="https://github.com/user-attachments/assets/dacd3389-303e-437c-a5f2-b4d9ab599dee" />
 </div>
 
 ---
@@ -167,6 +194,7 @@ When running the command `sudo fdisk -l /dev/sda`, the output shows an **`sda2`*
    - **`sda2`**: An Extended Partition (container for Logical Partitions).
    - **`sda5`** is a Logical Partition inside the Extended Partition **`sda2`** (used for LVM in your setup).
 
+   - for defense: `sudo fdisk -l /dev/sda`
 <div align="center">
    <img width="486" alt="Screen Shot 2024-12-08 at 9 09 24 PM" src="https://github.com/user-attachments/assets/8cd3f415-e5e9-48e8-a74a-52bb73565f6d">
 </div>
@@ -231,35 +259,17 @@ These tools are used to manage packages but they differ in their purpose, interf
    - `aptitude update`: To update package lists.
    - `aptitude safe-upgrade`: To safely upgrade packages.
 
-
-### Comparison Between `apt`, `apt-get`, and `aptitude`
-
-| Feature                  | `apt`               | `apt-get`              | `aptitude`               |
-|--------------------------|---------------------|------------------------|--------------------------|
-| **Interface**            | Simple and unified  | Traditional and complex| Text-based interactive   |
-| **Ease of Use**          | For regular users   | For professionals      | For professionals        |
-| **Dependency Resolution**| Manual              | Manual                 | Automatic                |
-| **User Messages**        | Clear and improved  | Traditional            | Interactive              |
-| **Default Installation** | Installed by default| Installed by default   | Needs manual installation|
-| **Complex Functionality**| Limited             | Powerful               | Powerful                 |
-
 ---
 
-## What’s a AppArmor & SELinux
+## What’s a AppArmor and SELinux
 
 **AppArmor** and **SELinux** are both security frameworks used to implement mandatory access control (MAC) protecting the system from harmful or unexpected behaviors ,It defines what actions programs are allowed to perform, but they have key differences in how they operate and are configured.
-### Summary Table:
-
-| Feature              | **AppArmor**                                 | **SELinux**                              |
-|----------------------|----------------------------------------------|------------------------------------------|
-| **Policy Type**      | Path-based                                   | Label-based                              |
-| **Complexity**       | Easier to use and configure                  | More complex, but offers more granularity|
-| **Flexibility**      | Less flexible, but sufficient for many users | Highly flexible and customizable         |
-| **Default Distro**   | Ubuntu, Debian, SUSE                         | Red Hat, Fedora, CentOS, RHEL            |
-
-### Difference Between AppArmor and SELinux:
-- **Flexibility**: SELinux is more powerful and complex but requires more in-depth setup, while AppArmor is easier to use.
-- **Implementation Method**: AppArmor is path-based, meaning it defines security policies based on file paths, whereas SELinux is label-based, meaning it uses labels for objects and enforces policies based on those labels.
+- **AppArmor**:
+   - It is easier to set up and manage than SELinux.
+   - It is used in distributions such as **Ubuntu**, **Debian**, and **SUSE**.
+- **SELinux**L:
+   - It is more complex to set up and manage.
+   - It is mainly used in distributions such as **Red Hat**, **CentOS**, and **Fedora**.
 
 ---
 
@@ -270,15 +280,9 @@ These tools are used to manage packages but they differ in their purpose, interf
 
 A **Secure Shell (SSH) Host** refers to a server or system that runs an **SSH server** to allow secure remote access and communication over a network. The term "SSH Host" is used to describe the machine that accepts incoming SSH connections from clients.
 
-#### Key Points about SSH Host:
+#### SSH Protocol:
 
-1. **SSH Protocol**: It is a cryptographic network protocol used to provide secure communication between a client and a server over an insecure network (such as the internet).
-    
-2. **Role of the Host**: The SSH Host is the machine that listens for incoming SSH connections. It requires an **SSH server software** (such as OpenSSH) to allow remote clients to connect securely.
-    
-3. **Authentication**: To access the SSH Host, users must authenticate, typically through a password or an SSH key pair (private and public keys).
-    
-4. **Secure Access**: Once connected to the SSH Host, the user can remotely execute commands, transfer files, or perform other administrative tasks in a secure environment, as SSH encrypts all data exchanged between the client and the host.
+**SSH Protocol** is a cryptographic network protocol used to provide secure communication between a client and a server over an insecure network (such as the internet).
 
 To set up an SSH Host, you typically need to install and configure an SSH server (like OpenSSH) on the host machine.
 
