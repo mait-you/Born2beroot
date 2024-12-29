@@ -796,6 +796,26 @@ To set up an SSH Host, you typically need to install and configure an SSH server
    - ``
 
 
+## Set up WordPress website
+
+- Install Required Packages:
+```bach
+sudo apt update && sudo apt upgrade -y
+sudo apt install lighttpd mariadb-server php php-mysql php-cgi wget unzip -y
+```
+
+- Enable PHP in Lighttpd:
+    1. Configure Lighttpd to support PHP:
+    ```bach
+    sudo lighty-enable-mod fastcgi
+    sudo lighty-enable-mod fastcgi-php
+    sudo systemctl reload lighttpd
+    ```
+
+    2. Verify PHP functionality:
+    ```bach
+    ```
+
 
 
 
