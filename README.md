@@ -798,35 +798,140 @@ To set up an SSH Host, you typically need to install and configure an SSH server
 
 ## Set up WordPress website
 
-- Install Required Packages:
-```bach
+1. Update the System
+```bash
 sudo apt update && sudo apt upgrade -y
+```
+
+2. Install Lighttpd
+
+Install the Lighttpd web server:
+```bash
+sudo apt install lighttpd -y
+```
+
+- Start and enable the service:
+```bash
+sudo systemctl start lighttpd
+```
+
+- Verify the installation by accessing your server's IP address in a browser (port 80).
+```bash
+sudo systemctl enable lighttpd
+```
+
+3. Install MariaDB
+
+Install MariaDB server and client:
+```bash
+sudo apt install mariadb-server mariadb-client -y
+```
+
+- Secure MariaDB:
+```bash
+sudo mysql_secure_installation
+```
+
+- Create a database and user for WordPress:
+
+```bash
+sudo mysql -u root -p
+```
+```sql
+CREATE DATABASE wordpress_db;
+CREATE USER 'wp_user'@'localhost' IDENTIFIED BY 'your_password';
+GRANT ALL PRIVILEGES ON wordpress_db.* TO 'wp_user'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+```
+
+4. Install PHP
+
+Install PHP and the required extensions:
+```bash
 sudo apt install lighttpd mariadb-server php php-mysql php-cgi wget unzip -y
 ```
 
-- Enable PHP in Lighttpd:
-    1. Configure Lighttpd to support PHP:
-    ```bach
-    sudo lighty-enable-mod fastcgi
-    sudo lighty-enable-mod fastcgi-php
-    sudo systemctl reload lighttpd
+- Enable FastCGI for Lighttpd:
+```bash
+sudo apt install lighttpd-mod-fastcgi -y
+sudo lighttpd-enable-mod fastcgi
+sudo lighttpd-enable-mod fastcgi-php
+sudo systemctl reload lighttpd
+```
+
+5. Install WordPress
+
+- Navigate to the Lighttpd root directory
+```bach
+cd /var/www/html/
+sudo rm index.lighttpd.html
+```
+
+- Download WordPress:
+```bash
+wget https://wordpress.org/latest.tar.gz
+sudo tar -xzf latest.tar.gz
+sudo mv wordpress/* .
+sudo rmdir wordpress
+sudo rm latest.tar.gz
+```
+
+- Set correct permissions:
+```bash
+sudo chown -R www-data:www-data /var/www/html/
+sudo chmod -R 755 /var/www/html/
+```
+
+6. Configure WordPress
+
+- Visit your server's IP in a browser and follow the WordPress installation wizard.
+- Provide the database details created earlier.
+
+7. Add an Additional Service
+
+**Chosen Service: Memcached**
+
+Memcached can improve performance by caching database queries and data.
+
+- Install Memcached:
+
+```bach
+sudo apt install memcached php-memcached -y
+```
+
+- Ensure Memcached is running:
+```bach
+sudo systemctl start memcached
+sudo systemctl enable memcached
+```
+
+- integrate with WordPress
+    - Use a plugin such as W3 Total Cache or WP Rocket to enable Memcached.
+
+8. Configure UFW Firewall
+
+- Open required ports:
+```bash
+sudo ufw allow 80
+sudo ufw allow 443
+sudo ufw allow 11211  # Memcached port
+sudo ufw enable
+```
+
+- Check firewall status:
+```bash
+sudo ufw status
+```
+
+9. Optional: Additional Services (Bonus)
+    1. Enable HTTPS with Certbot:
+    ```bash
+    sudo apt install certbot python3-certbot-lighttpd -y
+    sudo certbot --lighttpd
     ```
 
-    2. Verify PHP functionality:
-    ```bach
-    ```
-
-
-
-
-
-
-
-
-
-
-
-
+    2. Fail2Ban for added security.
 
 
 
