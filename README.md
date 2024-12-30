@@ -146,15 +146,14 @@ These tools are used to manage packages but they differ in their purpose, interf
 
 ---
 
-## What’s a AppArmor and SELinux
+## What’s a AppArmor
 
-**AppArmor** and **SELinux** are both security frameworks used to implement mandatory access control (MAC) protecting the system from harmful or unexpected behaviors ,It defines what actions programs are allowed to perform, but they have key differences in how they operate and are configured.
-- **AppArmor**:
-   - It is easier to set up and manage than SELinux.
-   - It is used in distributions such as **Ubuntu**, **Debian**, and **SUSE**.
-- **SELinux**L:
-   - It is more complex to set up and manage.
-   - It is mainly used in distributions such as **Red Hat**, **CentOS**, and **Fedora**.
+**AppArmor** is a security framework that control applications' access to system resources based on defined policies. It helps protect the system from harmful actions by enforcing permissions on applications.
+
+- To check if AppArmor is active on your system, run:
+```bash
+sudo aa-status
+```
 
 ---
 
