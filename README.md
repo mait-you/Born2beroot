@@ -13,22 +13,23 @@
     2. [`aptitude`](#aptitude)
     3. [`apt-get`](#apt-get)
 7. [What’s a AppArmor and SELinux](#whats-a-apparmor-and-selinux)
-8. [What’s LVM](#whats-lvm)
-9. [What’s a File System](#whats-a-file-system)
-10. [What’s a Linux File Systems](#whats-a-linux-file-systems)
-11. [The Block Devices](#the-block-devices)
+8. [What’s Label](#whats-label)
+9. [What’s LVM](#whats-lvm)
+10. [What’s a File System](#whats-a-file-system)
+11. [What’s a Linux File Systems](#whats-a-linux-file-systems)
+12. [The Block Devices](#the-block-devices)
     1. [Explanation of `lsblk` Output](#explanation-of-lsblk-output)
     2. [Understanding `sda2`](#understanding-sda2)
     3. [Why does `sda2` exist](#why-does-sda2-exist)
-12. [SSH (Secure Shell)](#ssh-secure-shell)
+13. [SSH (Secure Shell)](#ssh-secure-shell)
     1. [Secure Shell Host](#secure-shell-host)
     2. [SSH Protocol](#ssh-protocol)
     3. [Set Up the SSH Host (Server)](#set-up-the-ssh-host-server)
-13. [Configure UFW (Uncomplicated Firewall) to Allow SSH](#configure-ufw-uncomplicated-firewall-to-allow-ssh)
-14. [Setting Up and Using Sudo](#setting-up-and-using-sudo)
-15. [Creating a User](#creating-a-user)
-16. [Creating a Group](#creating-a-group)
-17. [Setting Password Policy](#setting-password-policy)
+14. [Configure UFW (Uncomplicated Firewall) to Allow SSH](#configure-ufw-uncomplicated-firewall-to-allow-ssh)
+15. [Setting Up and Using Sudo](#setting-up-and-using-sudo)
+16. [Creating a User](#creating-a-user)
+17. [Creating a Group](#creating-a-group)
+18. [Setting Password Policy](#setting-password-policy)
 
 ---
 
@@ -157,8 +158,25 @@ These tools are used to manage packages but they differ in their purpose, interf
 
 ---
 
+## What’s Label
+**label** refers to a name or identifier that is assigned to a disk or a partition. It helps distinguish between different partitions or disks, making it easier to manage and organize storage.
+
+- **GPT (GUID Partition Table)**: Modern and recommended for most systems. Supports:
+
+    - Drives larger than 2TB.
+    - More than 4 primary partitions supports up to 128 (on Linux).
+    - Compatibility with UEFI systems.
+
+- **DOS (MBR - Master Boot Record)**: Older partitioning standard, ideal for:
+
+    - Drives smaller than 2TB.
+    - Limited to 4 primary partitions unless using extended/logical partitions.
+    - Compatibility with BIOS systems.
+
+---
+
 ## What’s LVM
-**LVM (Logical Volume Manager)** is a flexible disk management system that allows dynamic partitioning and resizing of storage volumes in Linux. LVM provides a more advanced way to manage storage by abstracting physical storage into logical units.
+**LVM (Logical Volume Manager)** is used after the disk is partitioned and is a flexible disk management system that allows dynamic partitioning and resizing of storage volumes in Linux. LVM provides a more advanced way to manage storage by abstracting physical storage into logical units.
 
 1. **Physical Volumes (PVs)**:
    - Represent the actual physical storage devices.
