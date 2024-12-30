@@ -26,10 +26,11 @@
     3. [Set Up the SSH Host (Server)](#set-up-the-ssh-host-server)
 14. [Configure UFW (Uncomplicated Firewall) to Allow SSH](#configure-ufw-uncomplicated-firewall-to-allow-ssh)
 15. [Setting Up and Using Sudo](#setting-up-and-using-sudo)
+16. [Creating a User](#creating-a-user)
 16. [Creating a Group](#creating-a-group)
 17. [Setting Password Policy](#setting-password-policy)
 
----
+---Creating a User
 
 ## What’s an Operating System
 **Operating System (OS)** is system software that manages a computer’s hardware and software resources. It provides a user-friendly interface and acts as a bridge between the user and the hardware, enabling applications to run efficiently.
@@ -678,6 +679,15 @@ To set up an SSH Host, you typically need to install and configure an SSH server
         ```ylm
         username ALL=(ALL:ALL) /path/to/command1, /path/to/command2
         ```
+
+---
+
+## Creating a User
+
+```bash
+sudo adduser <user_name>
+```
+- The registered system will ask you for information such as `password`, full `name`, etc. You can press Enter to skip branches that you do not want to have multiple.
 
 ---
 
