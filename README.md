@@ -3,72 +3,157 @@
 
 ## Index:
 
-1. [What’s an Operating System](#whats-an-operating-system)
-2. [What’s the Different between Rocky Linux and Debian](#whats-the-different-between-rocky-linux-and-debian)
-3. [What’s the Linux Kernel](#whats-the-linux-kernel)
-4. [What’s a Virtual Machine](#whats-a-virtual-machine)
-5. [What’s a Hypervisor](#whats-a-hypervisor)
-6. [What’s LVM](#whats-lvm)
-7. [What’s a File System](#whats-a-file-system)
-8. [What’s a Linux File Systems](#whats-a-linux-file-systems)
-10. [The Block Devices](#the-block-devices)
+1. [How a Virtual Machine works](#how-a-virtual-machine-works)
+2. [What’s a Hypervisor](#whats-a-hypervisor)
+3. [What’s an Operating System](#whats-an-operating-system)
+4. [What’s the Linux Kernel](#whats-the-linux-kernel)
+5. [The Basic Differences Between Rocky and Debian](#the-basic-differences-between-rocky-and-debian)
+6. [Difference Between `apt`, `aptitude` and `apt-get`](#difference-between-apt-aptitude-and-apt-get)
+    1. [`apt`](#apt)
+    2. [`aptitude`](#aptitude)
+    3. [`apt-get`](#apt-get)
+7. [What’s a AppArmor and SELinux](#whats-a-apparmor-and-selinux)
+8. [What’s LVM](#whats-lvm)
+9. [What’s a File System](#whats-a-file-system)
+10. [What’s a Linux File Systems](#whats-a-linux-file-systems)
+11. [The Block Devices](#the-block-devices)
     1. [Explanation of `lsblk` Output](#explanation-of-lsblk-output)
     2. [Understanding `sda2`](#understanding-sda2)
     3. [Why does `sda2` exist](#why-does-sda2-exist)
-11. [Difference Between `apt`, `apt-get`, and `aptitude`](#difference-between-apt-apt-get-and-aptitude)
-    1. [`apt`](#apt)
-    2. [`apt-get`](#apt-get)
-    3. [`aptitude`](#aptitude)
-12. [What’s a AppArmor and SELinux](#whats-a-apparmor-and-selinux)
-13. [SSH (Secure Shell)](#ssh-secure-shell)
+12. [SSH (Secure Shell)](#ssh-secure-shell)
     1. [Secure Shell Host](#secure-shell-host)
     2. [SSH Protocol](#ssh-protocol)
     3. [Set Up the SSH Host (Server)](#set-up-the-ssh-host-server)
-14. [Configure UFW (Uncomplicated Firewall) to Allow SSH](#configure-ufw-uncomplicated-firewall-to-allow-ssh)
-15. [Setting Up and Using Sudo](#setting-up-and-using-sudo)
-16. [Creating a User](#creating-a-user)
+13. [Configure UFW (Uncomplicated Firewall) to Allow SSH](#configure-ufw-uncomplicated-firewall-to-allow-ssh)
+14. [Setting Up and Using Sudo](#setting-up-and-using-sudo)
+15. [Creating a User](#creating-a-user)
 16. [Creating a Group](#creating-a-group)
 17. [Setting Password Policy](#setting-password-policy)
 
----Creating a User
+---
+
+## How a Virtual Machine works
+
+**virtual machine** (VM) is software that emulates a physical computer. It uses a **hypervisor** to allocate resources (CPU, memory, storage) from the host machine to run an isolated **guest operating system**. VMs are used for testing, running multiple OSes, or creating secure environments.
+
+- Types of Virtual Machines:
+    - **Hosted**: Runs on top of an existing operating system. Examples: VirtualBox, VMware Workstation. Typically used for personal computers.
+    - **Bare Metal**: Runs directly on the physical hardware. Examples: VMware ESXi, Microsoft Hyper-V. Common in servers and data centers.
+- The purpose of virtual machines:
+    - **Isolation**: Keep systems separate for security.
+    - **Testing and Development**: VMs are ideal for testing software, configurations, or new operating systems without risking the host machine.
+
+---
+
+## What’s a Hypervisor
+
+**Hypervisor** is software that creates and manages virtual machines (VMs) on a physical device. It enables multiple operating systems to run simultaneously by allocating separate hardware resources to each VM.
+
+---
 
 ## What’s an Operating System
+
 **Operating System (OS)** is system software that manages a computer’s hardware and software resources. It provides a user-friendly interface and acts as a bridge between the user and the hardware, enabling applications to run efficiently.
 
 - **Is Linux an Operating System**
 
    **Yes**, Linux is an Operating System (OS), but more accurately, it refers to the **kernel**, which is the core part of the OS.
+
    - for defense:
+
       - `uname -s`: -> `Linux` print the kernel name.
       - `uname -o`: -> `GNU/Linux` print the operating system.
 
 ---
 
-## What’s the Different between Rocky Linux and Debian
+## What’s the Linux Kernel
+
+**The Linux kernel** manages hardware resources and acts as the foundation for Linux distributions and it is parte of **OS**.
+
+---
+
+## The Basic Differences Between Rocky and Debian
 - **Rocky**:
    - Based on Red Hat and designed as a free alternative to CentOS.
    - Ideal for large businesses and organizations.
    - Uses RPM package management system.
 - **Debian**:
-   - Uses APT and dpkg for package management.
+   - Uses APT for package management.
    - Ideal for both beginners and developers.
 
----
-
-## What’s the Linux Kernel
-**The Linux kernel** manages hardware resources and acts as the foundation for Linux distributions.
+- I chose **Debian** because it's stable, flexible, active community and open-source. It’s perfect for both development and server environments.
 
 ---
 
-## What’s a Virtual Machine
-**Virtual Machine (VM)** is a software capable of installing an Operating System (**OS**) within itself, making the OS think that it is hosted on a real computer. With virtual machines we can create virtual devices that will behave in the same way as physical devices, using their own CPU, memory, network interface and storage. This is possible because the virtual machine is hosted on a physical device, which is the one that provides the hardware resources to the VM.
+## Difference Between `apt`, `aptitude` and `apt-get`
+
+These tools are used to manage packages but they differ in their purpose, interface, and features. Here’s a detailed comparison:
+
+### `apt`
+
+   **Description**:  
+   - A modern and simplified package management interface. It is designed to be easier to use than `apt-get`.
+   
+   **Features**:
+   - Easy to use with a unified command syntax.
+   - Clear user messages.
+   - Suitable for end users.
+   
+   **Drawbacks**:
+   - Limited in handling complex scenarios.
+   
+   **Common Usage**:
+   - `apt install package`: To install packages.
+   - `apt update`: To update package lists.
+   - `apt upgrade`: To upgrade installed packages.
+
+### `aptitude`
+
+   **Description**:  
+   An advanced package management tool that provides a text-based interactive interface for resolving issues.
+   
+   **Features**:
+   - Interactive interface for displaying packages.
+   - Automatic dependency resolution.
+   - Supports all functions of `apt-get` with added features.
+   
+   **Drawbacks**:
+   - Requires manual installation and is not as commonly used by casual users.
+   
+   **Common Usage**:
+   - `aptitude install package`: To install packages.
+   - `aptitude update`: To update package lists.
+   - `aptitude safe-upgrade`: To safely upgrade packages.
+
+### `apt-get`
+
+   **Description**:  
+   A traditional, powerful package management tool, often used for complex tasks.
+   
+   **Features**:
+   - Supports a wide range of options.
+   - Flexible in handling dependencies.
+   - Reliable for professional and administrative use.
+   
+   **Drawbacks**:
+   - Less user-friendly and harder for casual users.
+   
+   **Common Usage**:
+   - `apt-get install package`: To install packages.
+   - `apt-get update`: To update package lists.
+   - `apt-get dist-upgrade`: To upgrade the system.
 
 ---
 
-## What’s a Hypervisor
-**Hypervisor** is software that creates and manages virtual machines (VMs) on a physical device. It enables multiple operating systems to run simultaneously by allocating separate hardware resources to each VM.
-- **Hosted Hypervisor**: Runs on top of an existing OS (e.g., Windows or Linux). Typically used for personal computers.
-- **Bare-Metal Hypervisor**: Runs directly on the physical hardware without requiring an underlying OS. Common in servers and data centers.
+## What’s a AppArmor and SELinux
+
+**AppArmor** and **SELinux** are both security frameworks used to implement mandatory access control (MAC) protecting the system from harmful or unexpected behaviors ,It defines what actions programs are allowed to perform, but they have key differences in how they operate and are configured.
+- **AppArmor**:
+   - It is easier to set up and manage than SELinux.
+   - It is used in distributions such as **Ubuntu**, **Debian**, and **SUSE**.
+- **SELinux**L:
+   - It is more complex to set up and manage.
+   - It is mainly used in distributions such as **Red Hat**, **CentOS**, and **Fedora**.
 
 ---
 
@@ -249,78 +334,6 @@ When running the command `sudo fdisk -l /dev/sda`, the output shows an **`sda2`*
 <div align="center">
    <img width="486" alt="Screen Shot 2024-12-08 at 9 09 24 PM" src="https://github.com/user-attachments/assets/8cd3f415-e5e9-48e8-a74a-52bb73565f6d">
 </div>
-
----
-
-## Difference Between `apt`, `apt-get`, and `aptitude`
-
-These tools are used to manage packages but they differ in their purpose, interface, and features. Here’s a detailed comparison:
-
-### `apt`
-
-   **Description**:  
-   - A modern and simplified package management interface. It is designed to be easier to use than `apt-get`.
-   
-   **Features**:
-   - Easy to use with a unified command syntax.
-   - Clear user messages.
-   - Suitable for end users.
-   
-   **Drawbacks**:
-   - Limited in handling complex scenarios.
-   
-   **Common Usage**:
-   - `apt install package`: To install packages.
-   - `apt update`: To update package lists.
-   - `apt upgrade`: To upgrade installed packages.
-
-### `apt-get`
-
-   **Description**:  
-   A traditional, powerful package management tool, often used for complex tasks.
-   
-   **Features**:
-   - Supports a wide range of options.
-   - Flexible in handling dependencies.
-   - Reliable for professional and administrative use.
-   
-   **Drawbacks**:
-   - Less user-friendly and harder for casual users.
-   
-   **Common Usage**:
-   - `apt-get install package`: To install packages.
-   - `apt-get update`: To update package lists.
-   - `apt-get dist-upgrade`: To upgrade the system.
-
-### `aptitude`
-
-   **Description**:  
-   An advanced package management tool that provides a text-based interactive interface for resolving issues.
-   
-   **Features**:
-   - Interactive interface for displaying packages.
-   - Automatic dependency resolution.
-   - Supports all functions of `apt-get` with added features.
-   
-   **Drawbacks**:
-   - Requires manual installation and is not as commonly used by casual users.
-   
-   **Common Usage**:
-   - `aptitude install package`: To install packages.
-   - `aptitude update`: To update package lists.
-   - `aptitude safe-upgrade`: To safely upgrade packages.
-
----
-
-## What’s a AppArmor and SELinux
-
-**AppArmor** and **SELinux** are both security frameworks used to implement mandatory access control (MAC) protecting the system from harmful or unexpected behaviors ,It defines what actions programs are allowed to perform, but they have key differences in how they operate and are configured.
-- **AppArmor**:
-   - It is easier to set up and manage than SELinux.
-   - It is used in distributions such as **Ubuntu**, **Debian**, and **SUSE**.
-- **SELinux**L:
-   - It is more complex to set up and manage.
-   - It is mainly used in distributions such as **Red Hat**, **CentOS**, and **Fedora**.
 
 ---
 
