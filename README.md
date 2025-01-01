@@ -946,8 +946,11 @@ cp wp-config-sample.php wp-config.php
 sudo nano wp-config.php
 ```
 
+9 .Go to the login page: Type the following link in the address bar:
 
-
+```
+http://localhost/wp-login.php
+```
 
 
 
