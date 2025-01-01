@@ -12,7 +12,7 @@
     1. [`apt`](#apt)
     2. [`aptitude`](#aptitude)
     3. [`apt-get`](#apt-get)
-7. [What’s a AppArmor and SELinux](#whats-a-apparmor-and-selinux)
+7. [What’s a AppArmor](#whats-a-apparmor)
 8. [What’s Label](#whats-label)
 9. [What’s LVM](#whats-lvm)
 10. [What’s a File System](#whats-a-file-system)
@@ -839,14 +839,16 @@ sudo adduser <user_name>
 
 ## Set up WordPress website
 
-1. Update the System
+1. **Update the System**
 ```bash
 sudo apt update && sudo apt upgrade -y
 ```
 
-2. Install Lighttpd
+2. **Install Lighttpd**
 
-Install the Lighttpd web server:
+**Lighttpd**: Acts as the web server, Handles incoming HTTP requests from users, serves static files (like images and CSS), and forwards requests for dynamic content to PHP.
+
+- Install the Lighttpd web server:
 ```bash
 sudo apt install lighttpd -y
 ```
@@ -861,9 +863,11 @@ sudo systemctl start lighttpd
 sudo systemctl enable lighttpd
 ```
 
-3. Install MariaDB
+3. **Install MariaDB**
 
-Install MariaDB server and client:
+**MariaDB**: Acts as the database server, Stores and manages all the data for your WordPress site, including posts, pages, comments, user information, and settings.
+
+- Install MariaDB server and client:
 ```bash
 sudo apt install mariadb-server mariadb-client -y
 ```
@@ -886,9 +890,11 @@ FLUSH PRIVILEGES;
 EXIT;
 ```
 
-4. Install PHP
+4. **Install PHP**
 
-Install PHP and the required extensions:
+**PHP**: Acts as the server-side scripting language, Powers WordPress by executing server-side code to generate dynamic pages, interact with the MariaDB database, handle form submissions, user authentication, and other server-side operations.
+
+- Install PHP and the required extensions:
 ```bash
 sudo apt install lighttpd mariadb-server php php-mysql php-cgi wget unzip -y
 ```
@@ -901,7 +907,10 @@ sudo lighttpd-enable-mod fastcgi-php
 sudo systemctl reload lighttpd
 ```
 
-5. Install WordPress
+5. **Install WordPress**
+
+**WordPress**: Acts as the content management system (CMS), Provides a user-friendly interface for managing content, themes, and plugins. It generates dynamic content based on database queries and user interaction.
+
 
 - Navigate to the Lighttpd root directory
 ```bach
