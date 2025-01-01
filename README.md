@@ -844,7 +844,17 @@ sudo adduser <user_name>
 sudo apt update && sudo apt upgrade -y
 ```
 
-2. **Install Lighttpd**
+2. **UFW setting allows temporary connections**
+
+```bash
+sudo ufw allow 80
+sudo ufw allow 443
+sudo ufw reload
+```
+- **Port 80**: Used to browse websites over HTTP (unencrypted connection).
+- **Port 443**: Used to browse websites over HTTPS (encrypted connection).
+
+3. **Install Lighttpd**
 
 **Lighttpd**: Acts as the web server, Handles incoming HTTP requests from users, serves static files (like images and CSS), and forwards requests for dynamic content to PHP.
 
@@ -853,17 +863,23 @@ sudo apt update && sudo apt upgrade -y
 sudo apt install lighttpd -y
 ```
 
-- Start and enable the service:
+
+4. **Install PHP**
+
+**PHP**: Acts as the server-side scripting language, Powers WordPress by executing server-side code to generate dynamic pages, interact with the MariaDB database, handle form submissions, user authentication, and other server-side operations.
+
+- Install PHP and the required extensions:
 ```bash
-sudo systemctl start lighttpd
+sudo apt install php php-fpm php-mysql php-gd php-xml php-mbstring php-curl -y
 ```
 
-- Verify the installation by accessing your server's IP address in a browser (port 80).
-```bash
-sudo systemctl enable lighttpd
-```
+- `php-mysql`: Connect to MySQL or MariaDB databases.
+- `php-gd`: Graphics library.
+- `php-xml`: XML processors.
+- `php-mbstring`: Support for multi-byte characters.
+- `php-curl`: Support for CURL connections.
 
-3. **Install MariaDB**
+5. **Install MariaDB**
 
 **MariaDB**: Acts as the database server, Stores and manages all the data for your WordPress site, including posts, pages, comments, user information, and settings.
 
@@ -872,116 +888,65 @@ sudo systemctl enable lighttpd
 sudo apt install mariadb-server mariadb-client -y
 ```
 
-- Secure MariaDB:
+- MariaDB Security:
 ```bash
 sudo mysql_secure_installation
 ```
 
-- Create a database and user for WordPress:
-
+- `su -`!!:
 ```bash
-sudo mysql -u root -p
+mariadb
 ```
-```sql
-CREATE DATABASE wordpress_db;
+
+- Then inside MySQL:
+```mysql
+CREATE DATABASE wordpress;
 CREATE USER 'wp_user'@'localhost' IDENTIFIED BY 'your_password';
-GRANT ALL PRIVILEGES ON wordpress_db.* TO 'wp_user'@'localhost';
+GRANT ALL PRIVILEGES ON wordpress.* TO 'wp_user'@'localhost';
 FLUSH PRIVILEGES;
 EXIT;
 ```
 
-4. **Install PHP**
-
-**PHP**: Acts as the server-side scripting language, Powers WordPress by executing server-side code to generate dynamic pages, interact with the MariaDB database, handle form submissions, user authentication, and other server-side operations.
-
-- Install PHP and the required extensions:
-```bash
-sudo apt install lighttpd mariadb-server php php-mysql php-cgi wget unzip -y
-```
-
-- Enable FastCGI for Lighttpd:
-```bash
-sudo apt install lighttpd-mod-fastcgi -y
-sudo lighttpd-enable-mod fastcgi
-sudo lighttpd-enable-mod fastcgi-php
-sudo systemctl reload lighttpd
-```
-
-5. **Install WordPress**
+6. **Setting up a database for WordPress**
 
 **WordPress**: Acts as the content management system (CMS), Provides a user-friendly interface for managing content, themes, and plugins. It generates dynamic content based on database queries and user interaction.
 
-
-- Navigate to the Lighttpd root directory
-```bach
-cd /var/www/html/
-sudo rm index.lighttpd.html
+- install wget:
+```bash
+apt install wget -y
 ```
 
 - Download WordPress:
 ```bash
-wget https://wordpress.org/latest.tar.gz
-sudo tar -xzf latest.tar.gz
-sudo mv wordpress/* .
-sudo rmdir wordpress
-sudo rm latest.tar.gz
+cd /var/www/
+sudo wget https://wordpress.org/latest.tar.gz
+sudo tar -xvzf latest.tar.gz
+sudo mv wordpress /var/www/html/
 ```
 
 - Set correct permissions:
 ```bash
-sudo chown -R www-data:www-data /var/www/html/
-sudo chmod -R 755 /var/www/html/
+sudo chown -R www-data:www-data /var/www/html/wordpress
 ```
 
-6. Configure WordPress
 
-- Visit your server's IP in a browser and follow the WordPress installation wizard.
-- Provide the database details created earlier.
+7. Restart services:
 
-7. Add an Additional Service
-
-**Chosen Service: Memcached**
-
-Memcached can improve performance by caching database queries and data.
-
-- Install Memcached:
-
-```bach
-sudo apt install memcached php-memcached -y
-```
-
-- Ensure Memcached is running:
-```bach
-sudo systemctl start memcached
-sudo systemctl enable memcached
-```
-
-- integrate with WordPress
-    - Use a plugin such as W3 Total Cache or WP Rocket to enable Memcached.
-
-8. Configure UFW Firewall
-
-- Open required ports:
 ```bash
-sudo ufw allow 80
-sudo ufw allow 443
-sudo ufw allow 11211  # Memcached port
-sudo ufw enable
+sudo systemctl restart lighttpd
+sudo systemctl restart php8.2-fpm
+sudo systemctl restart mariadb
 ```
 
-- Check firewall status:
+8. Setting up the `wp-config.php` file:
+
 ```bash
-sudo ufw status
+cd /var/www/html/wordpress
+cp wp-config-sample.php wp-config.php
+sudo nano wp-config.php
 ```
 
-9. Optional: Additional Services (Bonus)
-    1. Enable HTTPS with Certbot:
-    ```bash
-    sudo apt install certbot python3-certbot-lighttpd -y
-    sudo certbot --lighttpd
-    ```
 
-    2. Fail2Ban for added security.
 
 
 
